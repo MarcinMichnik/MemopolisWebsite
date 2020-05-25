@@ -1,0 +1,52 @@
+{% extends "memopolis/base.html" %}
+{% block content %}
+<div class="detailMeme">
+    <div class="meme">
+        <div class="author">
+            <div class="authorImg">
+                <a>
+                    <img class="rounded-circle small-img" src="{{ meme.author.profile.image.url }}">
+                </a>
+            </div>
+            <div class="authorName">
+                <a>{{ object.author }}</a>
+            </div>
+            <div class="datePosted">
+                <a>{{ object.date_posted|date:"d.m, Y" }}</a>
+            </div>
+        </div>
+        <div class="memeTitle">
+            <a>{{ object.title }}</a>
+        </div>
+        <div class="tags">
+            {% if object.tag1 %}
+            <a href="#">{{ object.tag1 }}</a>
+            {% endif %}
+            {% if object.tag2 %}
+            <a href="#">{{ object.tag2 }}</a>
+            {% endif %}
+            {% if object.tag3 %}
+            <a href="#">{{ object.tag3 }}</a>
+            {% endif %}
+        </div>
+        <div class="memeImg">
+            <a>
+                <img src="{{ object.image.url }}">
+            </a>
+        </div>
+        <div class="actions">
+            <div class="votes">
+                <button class="upvotes">{{ object.upvotes }}</button>
+            </div>
+            <div class="votes">
+                <button class="downvotes">{{ object.downvotes }}</button>
+            </div>
+            <div class="act">
+                <button class="comment">Skomentuj</button>
+                <button class="share">Udostępnij</button>
+                <button class="flag">Zgłoś</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

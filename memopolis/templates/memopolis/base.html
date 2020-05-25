@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'memopolis/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'memopolis/main.css' %}">
+    <title>Memopolis</title>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="{% url 'memopolis-index' %}">Memopolis</a>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="mr-auto">
+                    </div>
+                    <!-- Hamburger -->
+                    <div class="hamburger"><a>&#9776;</a></div>
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <a class="nav-item nav-link" href="{% url 'logout' %}">Wyloguj</a>
+                            <a class="nav-item nav-link" href="{% url 'profile' %}">Profil</a>
+                            <a href="{% url 'profile' %}"><img class="rounded-circle navimg" src="{{ user.profile.image.url }}"></a>
+                        {% else %}
+                            <a class="nav-item nav-link" href="{% url 'login' %}">Logowanie</a>
+                            <a class="nav-item nav-link" href="{% url 'register' %}">Rejestracja</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
