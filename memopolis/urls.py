@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import MemeListView, MemeDetailView
+from .views import MemeListView, MemeDetailView, MemeCreateView
 from . import views
 
 urlpatterns = [
     path('', MemeListView.as_view(), name="memopolis-index"),
     path('meme/<int:pk>', MemeDetailView.as_view(), name="meme-detail"),
+    path('meme/nowy', MemeCreateView.as_view(), name="meme-create"),
     path('kontakt/', views.kontakt, name="memopolis-kontakt"),
 ]

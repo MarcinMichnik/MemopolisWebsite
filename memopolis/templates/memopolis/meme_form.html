@@ -1,0 +1,20 @@
+{% extends "memopolis/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="user-app-wrap">
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Nowy mem</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outlint-info" type="submit">Stwórz</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'memopolis/translate.js' %}"></script>
+{% endblock content %}
