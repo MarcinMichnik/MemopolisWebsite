@@ -20,13 +20,13 @@
         </div>
         <div class="tags">
             {% if object.tag1 %}
-            <a href="#">{{ object.tag1 }}</a>
+            <a>{{ object.tag1 }}</a>
             {% endif %}
             {% if object.tag2 %}
-            <a href="#">{{ object.tag2 }}</a>
+            <a>{{ object.tag2 }}</a>
             {% endif %}
             {% if object.tag3 %}
-            <a href="#">{{ object.tag3 }}</a>
+            <a>{{ object.tag3 }}</a>
             {% endif %}
         </div>
         <div class="memeImg">
@@ -36,10 +36,24 @@
         </div>
         <div class="actions">
             <div class="votes">
-                <button class="upvotes">{{ object.upvotes }}</button>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <button type="submit" name="{{ object.pk }} {{ user.id }} up" class="upvotes">{{ object.upvotes }}</button>
+                    {% else %}
+                    <a class="upvotes">{{ object.upvotes }}</a>
+                    {% endif %}
+                </form>
             </div>
             <div class="votes">
-                <button class="downvotes">{{ object.downvotes }}</button>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <button type="submit" name="{{ object.pk }} {{ user.id }} down" class="downvotes">{{ object.downvotes }}</button>
+                    {% else %}
+                    <a class="downvotes">{{ object.downvotes }}</a>
+                    {% endif %}
+                </form>
             </div>
             <div class="act">
                 <button class="comment">Skomentuj</button>
@@ -48,5 +62,8 @@
             </div>
         </div>
     </div>
+</div>
+<div class="comment-section">
+
 </div>
 {% endblock content %}

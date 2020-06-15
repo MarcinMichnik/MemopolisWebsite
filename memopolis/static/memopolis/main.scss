@@ -1,18 +1,17 @@
+$primary-color: #185a8a;
+
 body {
   background: whitesmoke;
   color: #333333;
   font-family: 'Segoe UI', sans-serif;
 }
-
 .account-img {
-  width: 100px !important;
-  height: 100px !important;
+  width:100px !important;
+  height:100px !important;
 }
-
-iframe {
+iframe{
   display: none;
 }
-
 .navbar {
   justify-content: initial;
 }
@@ -20,14 +19,14 @@ iframe {
 body a {
   text-decoration: none;
 }
-
 .top img {
   width: 270px;
   height: 200px;
+
 }
 
 .top {
-  border-style: solid;
+  border-style:solid;
   margin-bottom: 20px;
 }
 
@@ -37,11 +36,11 @@ body a {
 }
 
 .bg-steel {
-  background-color: #185a8a;
+  background-color: $primary-color;
 }
 
-.site-header {
-  margin-bottom: 0px;
+.site-header{
+  margin-bottom:0px;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -58,12 +57,12 @@ body a {
 
 .content-section {
   padding: 0px 20px;
-  border: solid #185a8a;
+  border: solid $primary-color;
   border-radius: 3px;
-  margin-top: 10px;
-  min-height: 500px;
+  margin-top:10px;
+  min-height:500px;
   width: 320px;
-  background-color: #eeeeee;
+  background-color: rgb(238, 238, 238);
 }
 
 .account-img {
@@ -86,25 +85,23 @@ body a {
 }
 
 .alert-success {
-  background-color: #70e270;
+  background-color: rgb(112, 226, 112);
   text-align: center;
 }
-
 .hidden {
-  display: none !important;
+  display:none !important;
 }
-
 .actions,
 .author {
   display: flex;
-  background-color: #185a8a;
+  background-color: $primary-color;
   padding-top: 3px;
   padding-bottom: 3px;
   justify-content: left;
   color: whitesmoke;
 }
 
-.actions * {
+.actions *{
   display: flex;
 }
 
@@ -121,14 +118,15 @@ a {
 }
 
 .upvotes {
-  color: #94ec94;
+  color: rgb(148, 236, 148);
   font-weight: bolder;
 }
 
 .downvotes {
-  color: #f08a8a;
+  color: rgb(240, 138, 138);
   font-weight: bolder;
 }
+
 
 .memeImg {
   margin-bottom: 10px;
@@ -156,8 +154,8 @@ header {
 
 .meme {
   border-style: solid;
-  border-color: #185a8a;
-  background-color: #eeeeee;
+  border-color: $primary-color;
+  background-color: rgb(238, 238, 238);
   padding: 10px;
   margin-top: 10px;
 }
@@ -192,18 +190,21 @@ header {
   margin-top: 14px;
   margin-bottom: 14px;
   padding: 10px;
-  background-color: #185a8a;
-  color: whitesmoke;
+  background-color: $primary-color;
+  color:whitesmoke;
+
+}
+.step-links a {
+  color:whitesmoke;
 }
 
-.step-links a {
-  color: whitesmoke;
-}
 
 #content {
   display: flex;
   justify-content: center;
 }
+
+
 
 .meme .memeTitle {
   margin-top: 5px;
@@ -227,14 +228,14 @@ header {
 .navbar-brand {
   font-size: 30px;
   padding: 10px;
-  color: #e4e4e4;
+  color: rgb(228, 228, 228);
   text-decoration: none;
 }
 
 .nav-item {
   font-size: 20px;
   padding: 10px;
-  color: #e4e4e4;
+  color: rgb(228, 228, 228);
   text-decoration: none;
 }
 
@@ -255,7 +256,8 @@ header {
 .form-group button {
   color: #185a8a;
   border-style: solid;
-  border-color: #185a8a;
+  border-color: $primary-color;
+
   margin-top: 5px;
   margin-left: 2px;
   padding: 10px;
@@ -266,16 +268,13 @@ header {
 button {
   border: none;
 }
-
-.comment, .share, .flag {
-  background-color: #185a8a;
-  color: whitesmoke;
+.comment,.share,.flag {
+  background-color: $primary-color;
+  color:whitesmoke;
 }
-
-.downvotes, .upvotes {
-  background-color: #185a8a;
+.downvotes,.upvotes{
+  background-color: $primary-color;
 }
-
 a:hover {
   text-decoration: none;
   color: #6db6eb;
@@ -304,7 +303,7 @@ a:hover {
 }
 
 #profile {
-  width: initial;
+  width:initial;
 }
 
 .navimg {
@@ -312,7 +311,6 @@ a:hover {
   height: 50px;
   margin-left: 8px;
 }
-
 #div_id_image a {
   font-size: 14px;
 }
@@ -321,14 +319,15 @@ a:hover {
   width: 16px;
   height: 16px;
   margin-bottom: 2px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left:5px;
+  margin-right:5px;
 }
 
 @media (max-width: 1100px) {
   .pagination * {
     font-size: 16px;
   }
+
   .content-section {
     width: 280px;
   }
@@ -338,6 +337,7 @@ a:hover {
   .pagination * {
     font-size: 15px;
   }
+
   .content-section {
     width: 260px;
   }
@@ -347,6 +347,7 @@ a:hover {
   .pagination * {
     font-size: 14px;
   }
+
   .content-section {
     width: 230px;
   }
@@ -356,57 +357,76 @@ a:hover {
   .step-links {
     font-size: 11px;
   }
+
   .container {
     flex-wrap: nowrap !important;
   }
+
   .container .row {
     margin-left: 105px;
   }
+
+
   .content {
     display: flex !important;
     justify-content: center !important;
   }
+
   .actions {
     padding-left: 0px;
   }
+
   .actions * {
     margin-left: 2px;
     font-size: 15px;
   }
+
   .actions button {
     padding-left: 3px;
     padding-right: 3px;
     padding-top: 1px;
     padding-bottom: 1px;
+
   }
+
+
   .memeTitle {
     font-size: 24px;
   }
+
   .tags a {
     font-size: 8px;
   }
+
   .tags {
     padding-top: 2px;
   }
+
   .author {
     font-size: 10px;
   }
+
   .datePosted a {
     font-size: 10px;
   }
+
   .memeImg {
     margin-top: 5px;
     margin-bottom: 5px;
   }
+
   .meme .memeTitle {
     margin-bottom: -10px;
   }
+
   .pagination * {
     font-size: 13px;
   }
+
   .content-section {
     width: 190px;
   }
+
 }
 
 /*hamburger mode*/
@@ -414,57 +434,72 @@ a:hover {
   .pagination * {
     font-size: 11px;
   }
+
   #navbarToggle {
     display: block;
   }
+
   .navbar-nav {
     display: none;
   }
+
   .container {
     flex-wrap: nowrap !important;
   }
+
   .col-md-4 {
     display: none;
   }
+
+
   .hamburger {
     visibility: visible;
     font-size: 30px;
     position: relative;
   }
+
   .mr-auto {
     display: none;
   }
 }
 
 @media (max-width: 600px) {
+
   .hamburger {
     visibility: visible;
     font-size: 30px;
     position: relative;
   }
+
   .col-md-4 {
     display: none;
   }
+
   .pagination * {
     font-size: 11px;
   }
   .memeTitle {
     font-size: 28px;
   }
+
 }
 
 @media (max-width: 489px) {
+
   .hamburger {
     visibility: visible;
     font-size: 30px;
     position: relative;
   }
+
   .container .row {
     margin-left: 15px;
   }
+
   .col-md-4 {
     display: none;
   }
+
   .pagination * {
     font-size: 7px;
   }

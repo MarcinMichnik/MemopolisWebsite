@@ -1,4 +1,5 @@
 {% extends "memopolis/base.html" %}
+{% load static %}
 {% block content %}
 <div id="content">
     <div class="memes">
@@ -22,13 +23,13 @@
             </div>
             <div class="tags">
                 {% if meme.tag1 %}
-                <a href="#">{{ meme.tag1 }}</a>
+                <a>{{ meme.tag1 }}</a>
                 {% endif %}
                 {% if meme.tag2 %}
-                <a href="#">{{ meme.tag2 }}</a>
+                <a>{{ meme.tag2 }}</a>
                 {% endif %}
                 {% if meme.tag3 %}
-                <a href="#">{{ meme.tag3 }}</a>
+                <a>{{ meme.tag3 }}</a>
                 {% endif %}
             </div>
             <div class="memeImg">
@@ -36,12 +37,29 @@
                     <img src="{{ meme.image.url }}">
                 </a>
             </div>
+            <iframe name="frame"></iframe>
             <div class="actions">
                 <div class="votes">
-                    <button class="upvotes">{{ meme.upvotes }}</button>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up"
+                            class="upvotes">{{ meme.upvotes }}</button>
+                        {% else %}
+                        <a class="upvotes">{{ meme.upvotes }}</a>
+                        {% endif %}
+                    </form>
                 </div>
                 <div class="votes">
-                    <button class="downvotes">{{ meme.downvotes }}</button>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down"
+                            class="downvotes">{{ meme.downvotes }}</button>
+                        {% else %}
+                        <a class="downvotes">{{ meme.downvotes }}</a>
+                        {% endif %}
+                    </form>
                 </div>
                 <div class="act">
                     <button class="comment">Skomentuj</button>
@@ -55,6 +73,16 @@
     <div class="col-md-4">
         <div class="content-section">
             <a href="#">Top</a>
+            {% for top in tops %}
+            <div>
+                <a href="{% url 'meme-detail' top.id %}">#{{ forloop.counter }}</a>
+            </div>
+            <div class="top">
+                <a href="{% url 'meme-detail' top.id %}">{{ top }}</a>
+                <a href="{% url 'meme-detail' top.id %}"><img src="{{ top.image.url }}"></a>
+            </div>
+
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -92,4 +120,5 @@
         {% endif %}
     </div>
 </div>
+<script src="static/memopolis/vote.js"></script>
 {% endblock content %}

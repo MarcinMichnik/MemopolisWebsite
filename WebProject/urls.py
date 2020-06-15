@@ -28,6 +28,10 @@ urlpatterns = [
     path('rejestracja/', user_views.register, name="register"),
     path('logowanie/', auth_views.LoginView.as_view(template_name='users/login.html'), name="login"),
     path('wylogowywanie/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name="logout"),
+    path('reset/', auth_views.PasswordResetView.as_view(template_name='users/password_reset.html'), name="password_reset"),
+    path('reset/zrobiony/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'), name="password_reset_done"),
+    path('reset/powierdzanie/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name="password_reset_confirm"),
+    path('reset/zakończony/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name="password_reset_complete"),
     # homepage url
     path('', include('memopolis.urls')),
     #

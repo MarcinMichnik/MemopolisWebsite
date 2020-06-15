@@ -9,12 +9,16 @@
                 <legend class="border-bottom mb-4">Logowanie</legend>
                 {{ form|crispy }}
             </fieldset>
+
             <div class="form-group">
                 <button class="btn btn-outlint-info" type="submit">Wyślij</button>
+                <small class="text-muted ml-2">
+                    <a href="{% url 'password_reset' %}">Zapomniałeś/-aś hasła?</a>
+                </small>
             </div>
         </form>
         <div class="border-top pt-3">
-            <small class="text-muted">Potrzebujesz konta? <a class="ml-2" href="{% url 'register' %}">Zarejestruj się</a></small>
+            <small class="text-muted">Nie masz konta?<a class="ml-2" href="{% url 'register' %}">Zarejestruj się</a></small>
         </div>
     </div>
 </div>
