@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 class MemeListView(ListView):
     model = Meme
@@ -14,14 +15,19 @@ class MemeListView(ListView):
     paginate_by = 2
     
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        if self.ordering == ['-date_posted']:
+
+        context = {}
+
+        if self.template_name == 'memopolis/index.html' or self.template_name == 'memopolis/top.html':
             tops = Meme.objects.order_by('-upvotes')[:3]
             context['tops']=tops
-            print('+')
+            
+            # only accepted memes
+            memes = Meme.objects.order_by('-upvotes').filter(accepted=True)
+            context['memes']=memes
+            
         else:
-            print('-')
+            context = super().get_context_data(**kwargs)
 
         return context
     
@@ -30,13 +36,13 @@ class MemeListView(ListView):
         #receive vote data
         raw = list(request.POST)[1]
         raw = raw.split(' ')
-        meme_pk, user_id, vote = raw[0], raw[1], raw[2]
+        object_pk, user_id, vote = raw[0], raw[1], raw[2]
 
-        print(meme_pk, user_id, vote)
+        print(object_pk, user_id, vote)
         
         #manipulate the values
-        #Meme.objects.filter(pk=meme_pk)
-        the_meme = Meme.objects.filter(pk=meme_pk)[0]
+        #Meme.objects.filter(pk=object_pk)
+        the_meme = Meme.objects.filter(pk=object_pk)[0]
         
         #list out of the raw text
         list_upvoted_by = the_meme.upvoted_by.split(', ')
@@ -50,8 +56,6 @@ class MemeListView(ListView):
             if user_id not in list_downvoted_by and user_id not in list_upvoted_by:
                 the_meme.downvotes+=1
                 the_meme.downvoted_by+=str(user_id)+', ' 
-        print(the_meme.upvoted_by)
-        print(the_meme.downvoted_by)
         the_meme.save()
         return HttpResponseRedirect("")
         
@@ -59,50 +63,93 @@ class TopMemeListView(MemeListView):
     ordering=["-upvotes"]
     template_name = 'memopolis/top.html'
     
+class UnacceptedMemeListView(MemeListView):
+    ordering=["-date_posted"]
+    template_name = 'memopolis/unaccepted_memes.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+
+        return context
+    
+    
 class MemeDetailView(DetailView):
     model = Meme
     
-    def post(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        meme = context['meme']
+        comments = Comment.objects.filter(belongs_to=meme)
+        context['comments'] = comments
 
+        return context
+    
+    
+    def post(self, request, *args, **kwargs):
+        
         #receive vote data
         raw = list(request.POST)[1]
         raw = raw.split(' ')
-        meme_pk = raw[0]
+        object_pk = raw[0]
         user_id = raw[1]
         vote = raw[2]
-        print(meme_pk, user_id, vote)
+        direction = raw[3]
+        
+        if direction == 'meme':
+            print(object_pk, user_id, vote)
 
-        #manipulate the values
-        #Meme.objects.filter(pk=meme_pk)
-        the_meme = Meme.objects.filter(pk=meme_pk)[0]
+            #manipulate the values
+            #Meme.objects.filter(pk=object_pk)
+            the_meme = Meme.objects.filter(pk=object_pk)[0]
 
-        #list out of the raw text
-        list_upvoted_by = the_meme.upvoted_by.split(', ')
-        list_downvoted_by = the_meme.downvoted_by.split(', ')
+            #list out of the raw text
+            list_upvoted_by = the_meme.upvoted_by.split(', ')
+            list_downvoted_by = the_meme.downvoted_by.split(', ')
 
-        if vote=='up':
-            if user_id not in list_upvoted_by and user_id not in list_downvoted_by:
-                the_meme.upvotes+=1
-                the_meme.upvoted_by+=str(user_id)+', ' 
-        elif vote=='down':
-            if user_id not in list_downvoted_by and user_id not in list_upvoted_by:
-                the_meme.downvotes+=1
-                the_meme.downvoted_by+=str(user_id)+', ' 
-        print(the_meme.upvoted_by)
-        print(the_meme.downvoted_by)
-        the_meme.save()
+            if vote=='up':
+                if user_id not in list_upvoted_by and user_id not in list_downvoted_by:
+                    the_meme.upvotes+=1
+                    the_meme.upvoted_by+=str(user_id)+', ' 
+            elif vote=='down':
+                if user_id not in list_downvoted_by and user_id not in list_upvoted_by:
+                    the_meme.downvotes+=1
+                    the_meme.downvoted_by+=str(user_id)+', ' 
+            the_meme.save()
+            
+        elif direction == 'comment':
+            print(object_pk, user_id, vote)
+
+            #manipulate the values
+            #Meme.objects.filter(pk=object_pk)
+            the_comment = Comment.objects.filter(pk=object_pk)[0]
+
+            #list out of the raw text
+            list_upvoted_by = the_comment.upvoted_by.split(', ')
+            list_downvoted_by = the_comment.downvoted_by.split(', ')
+
+            if vote=='up':
+                if user_id not in list_upvoted_by and user_id not in list_downvoted_by:
+                    the_comment.upvotes+=1
+                    the_comment.upvoted_by+=str(user_id)+', ' 
+            elif vote=='down':
+                if user_id not in list_downvoted_by and user_id not in list_upvoted_by:
+                    the_comment.downvotes+=1
+                    the_comment.downvoted_by+=str(user_id)+', ' 
+            the_comment.save()
+            
         return HttpResponseRedirect("")
-    
-    def make_a_comment(self, request):
-        pass
     
 class MemeCreateView(CreateView):
     model = Meme
     fields = ['title','tag1','tag2','tag3','image']
     
     def form_valid(self, form):
-        form.instance.author = self.request.User
+        form.instance.author = self.request.user
         return super().form_valid(form)
+    
+
     
 def kontakt(request):
     return render(request, "memopolis/kontakt.html")

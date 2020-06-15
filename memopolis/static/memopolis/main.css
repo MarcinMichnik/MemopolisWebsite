@@ -90,6 +90,21 @@ body a {
   text-align: center;
 }
 
+.pad {
+  padding: 3px;
+}
+
+.comment-content {
+  min-height: 60px;
+}
+
+.each-comment {
+  border-style: solid;
+  border-color: #185a8a;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
 .hidden {
   display: none !important;
 }
@@ -225,7 +240,7 @@ header {
 }
 
 .detailMeme {
-  min-height: 1000px;
+  margin-bottom: 20px;
 }
 
 .navbar-brand {
@@ -336,6 +351,9 @@ a:hover {
   .content-section {
     width: 280px;
   }
+  .top img {
+    width: 228px;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -345,6 +363,9 @@ a:hover {
   .content-section {
     width: 260px;
   }
+  .top img {
+    width: 210px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -353,6 +374,9 @@ a:hover {
   }
   .content-section {
     width: 230px;
+  }
+  .top img {
+    width: 179px;
   }
 }
 

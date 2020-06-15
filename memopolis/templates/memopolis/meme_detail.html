@@ -9,29 +9,29 @@
                 </a>
             </div>
             <div class="authorName">
-                <a>{{ object.author }}</a>
+                <a>{{ meme.author }}</a>
             </div>
             <div class="datePosted">
-                <a>{{ object.date_posted|date:"d.m, Y" }}</a>
+                <a>{{ meme.date_posted|date:"d.m, Y" }}</a>
             </div>
         </div>
         <div class="memeTitle">
-            <a>{{ object.title }}</a>
+            <a>{{ meme.title }}</a>
         </div>
         <div class="tags">
-            {% if object.tag1 %}
-            <a>{{ object.tag1 }}</a>
+            {% if meme.tag1 %}
+            <a>{{ meme.tag1 }}</a>
             {% endif %}
-            {% if object.tag2 %}
-            <a>{{ object.tag2 }}</a>
+            {% if meme.tag2 %}
+            <a>{{ meme.tag2 }}</a>
             {% endif %}
-            {% if object.tag3 %}
-            <a>{{ object.tag3 }}</a>
+            {% if meme.tag3 %}
+            <a>{{ meme.tag3 }}</a>
             {% endif %}
         </div>
         <div class="memeImg">
             <a>
-                <img src="{{ object.image.url }}">
+                <img src="{{ meme.image.url }}">
             </a>
         </div>
         <div class="actions">
@@ -39,9 +39,10 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     {% if user.is_authenticated %}
-                    <button type="submit" name="{{ object.pk }} {{ user.id }} up" class="upvotes">{{ object.upvotes }}</button>
+                    <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme"
+                        class="upvotes">{{ meme.upvotes }}</button>
                     {% else %}
-                    <a class="upvotes">{{ object.upvotes }}</a>
+                    <a class="upvotes">{{ meme.upvotes }}</a>
                     {% endif %}
                 </form>
             </div>
@@ -49,9 +50,10 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     {% if user.is_authenticated %}
-                    <button type="submit" name="{{ object.pk }} {{ user.id }} down" class="downvotes">{{ object.downvotes }}</button>
+                    <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme"
+                        class="downvotes">{{ meme.downvotes }}</button>
                     {% else %}
-                    <a class="downvotes">{{ object.downvotes }}</a>
+                    <a class="downvotes">{{ meme.downvotes }}</a>
                     {% endif %}
                 </form>
             </div>
@@ -63,7 +65,57 @@
         </div>
     </div>
 </div>
-<div class="comment-section">
+<div>
+    <form action="" method="post">
+        
 
+    </form>
+</div>
+<div class="comment-section">
+    {% for comment in comments %}
+    <div class="each-comment">
+        <div class="author pad">
+
+            <div class="authorImg">
+                <a>
+                    <img class="rounded-circle small-img" src="{{ meme.author.profile.image.url }}">
+                </a>
+                {{ comment.author_id }}
+            </div>
+
+        </div>
+        <div class="comment-content">
+            {{ comment.content }}
+        </div>
+        <div class="actions">
+            <div class="votes">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <button type="submit" name="{{ comment.pk }} {{ user.id }} up comment"
+                        class="upvotes">{{ comment.upvotes }}</button>
+                    {% else %}
+                    <a class="upvotes">{{ comment.upvotes }}</a>
+                    {% endif %}
+                </form>
+            </div>
+            <div class="votes">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <button type="submit" name="{{ comment.pk }} {{ user.id }} down comment"
+                        class="downvotes">{{ comment.downvotes }}</button>
+                    {% else %}
+                    <a class="downvotes">{{ comment.downvotes }}</a>
+                    {% endif %}
+                </form>
+            </div>
+            <div class="act">
+                <button class="comment">Odpowiedz</button>
+                <button class="flag">Zgłoś</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock content %}

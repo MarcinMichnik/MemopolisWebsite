@@ -43,7 +43,7 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         {% if user.is_authenticated %}
-                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme"
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up"
                             class="upvotes">{{ meme.upvotes }}</button>
                         {% else %}
                         <a class="upvotes">{{ meme.upvotes }}</a>
@@ -54,7 +54,7 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         {% if user.is_authenticated %}
-                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme"
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down"
                             class="downvotes">{{ meme.downvotes }}</button>
                         {% else %}
                         <a class="downvotes">{{ meme.downvotes }}</a>
@@ -70,21 +70,7 @@
         </div>
         {% endfor %}
     </div>
-    <div class="col-md-4">
-        <div class="content-section">
-            <a href="{% url 'memopolis-top' %}">Top</a>
-            {% for top in tops %}
-            <div>
-                <a href="{% url 'meme-detail' top.id %}">#{{ forloop.counter }}</a>
-            </div>
-            <div class="top">
-                <a href="{% url 'meme-detail' top.id %}">{{ top }}</a>
-                <a href="{% url 'meme-detail' top.id %}"><img src="{{ top.image.url }}"></a>
-            </div>
 
-            {% endfor %}
-        </div>
-    </div>
 </div>
 
 <div class="pagination">
