@@ -72,7 +72,7 @@
     </div>
     <div class="col-md-4">
         <div class="content-section">
-            <a href="#">Top</a>
+            <a href="{% url 'memopolis-top' %}">Top</a>
             {% for top in tops %}
             <div>
                 <a href="{% url 'meme-detail' top.id %}">#{{ forloop.counter }}</a>

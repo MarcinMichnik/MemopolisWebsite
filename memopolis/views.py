@@ -15,8 +15,13 @@ class MemeListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tops = Meme.objects.order_by('-upvotes')[:3]
-        context['tops']=tops
+        
+        if self.ordering == ['-date_posted']:
+            tops = Meme.objects.order_by('-upvotes')[:3]
+            context['tops']=tops
+            print('+')
+        else:
+            print('-')
 
         return context
     
@@ -50,12 +55,12 @@ class MemeListView(ListView):
         the_meme.save()
         return HttpResponseRedirect("")
         
+class TopMemeListView(MemeListView):
+    ordering=["-upvotes"]
+    template_name = 'memopolis/top.html'
+    
 class MemeDetailView(DetailView):
     model = Meme
-    
-    def get(self, request):
-        
-        return HttpResponseRedirect("")
     
     def post(self, request, *args, **kwargs):
 

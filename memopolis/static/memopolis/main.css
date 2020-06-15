@@ -141,6 +141,10 @@ a {
   max-height: 100%;
 }
 
+.center {
+  text-align: center;
+}
+
 button:hover {
   cursor: pointer;
   color: #6db6eb;

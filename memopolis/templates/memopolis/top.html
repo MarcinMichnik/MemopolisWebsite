@@ -1,0 +1,110 @@
+{% extends "memopolis/base.html" %}
+{% load static %}
+{% block content %}
+<div class="center"><h1>Top</h1></div>
+<div id="content">
+    <div class="memes">
+        {% for meme in memes %}
+        <div class="meme">
+            <div class="author">
+                <div class="authorImg">
+                    <a>
+                        <img class="rounded-circle small-img" src="{{ meme.author.profile.image.url }}">
+                    </a>
+                </div>
+                <div class="authorName">
+                    <a>{{ meme.author }}</a>
+                </div>
+                <div class="datePosted">
+                    <a>{{ meme.date_posted|date:"d.m, Y" }}</a>
+                </div>
+            </div>
+            <div class="memeTitle">
+                <a href="{% url 'meme-detail' meme.id %}">{{ meme.title }}</a>
+            </div>
+            <div class="tags">
+                {% if meme.tag1 %}
+                <a>{{ meme.tag1 }}</a>
+                {% endif %}
+                {% if meme.tag2 %}
+                <a>{{ meme.tag2 }}</a>
+                {% endif %}
+                {% if meme.tag3 %}
+                <a>{{ meme.tag3 }}</a>
+                {% endif %}
+            </div>
+            <div class="memeImg">
+                <a href="{% url 'meme-detail' meme.id %}">
+                    <img src="{{ meme.image.url }}">
+                </a>
+            </div>
+            <iframe name="frame"></iframe>
+            <div class="actions">
+                <div class="votes">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up"
+                            class="upvotes">{{ meme.upvotes }}</button>
+                        {% else %}
+                        <a class="upvotes">{{ meme.upvotes }}</a>
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="votes">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down"
+                            class="downvotes">{{ meme.downvotes }}</button>
+                        {% else %}
+                        <a class="downvotes">{{ meme.downvotes }}</a>
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="act">
+                    <button class="comment">Skomentuj</button>
+                    <button class="share">Udostępnij</button>
+                    <button class="flag">Zgłoś</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="pagination">
+    <div class="step-links">
+        {% if page_obj.has_previous %}
+        <div class="prev">
+            <a href="?page=1">&laquo; Pierwsza</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Poprzednia</a>
+        </div>
+        {% endif %}
+        {% if not page_obj.has_previous %}
+        <div class="prev">
+            <a>&laquo; Pierwsza</a>
+            <a>Poprzednia</a>
+        </div>
+        {% endif %}
+
+        <div class="current">
+            Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+        </div>
+
+        {% if page_obj.has_next %}
+        <div class="forth">
+            <a href="?page={{ page_obj.next_page_number }}">Następna</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Ostatnia &raquo;</a>
+        </div>
+        {% endif %}
+        {% if not page_obj.has_next %}
+        <div class="forth">
+            <a>Następna</a>
+            <a>Ostatnia &raquo;</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<script src="static/memopolis/vote.js"></script>
+{% endblock content %}
