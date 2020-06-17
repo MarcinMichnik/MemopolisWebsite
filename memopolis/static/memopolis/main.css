@@ -189,13 +189,6 @@ header {
   font-size: 13px;
 }
 
-.hamburger {
-  font-size: 40px;
-  visibility: hidden;
-  color: white;
-  text-align: right;
-}
-
 .step-links {
   font-size: 16px;
   display: flex;
@@ -224,6 +217,28 @@ header {
   justify-content: center;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #185a8a;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  right: 0;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  position: absolute;
+  display: block;
+}
+
 .meme .memeTitle {
   margin-top: 5px;
   margin-bottom: 3px;
@@ -237,6 +252,11 @@ header {
 
 .collapse {
   display: flex;
+}
+
+.dropdown a {
+  color: white;
+  font-size: 36px;
 }
 
 .detailMeme {
@@ -264,6 +284,10 @@ header {
 .mr-auto {
   text-align: left;
   padding-top: 17px;
+}
+
+.dropdown {
+  display: none;
 }
 
 .user-app-wrap {
@@ -319,7 +343,7 @@ a:hover {
 
 #navbarToggle {
   display: flex;
-  justify-content: right;
+  text-align: right;
 }
 
 #profile {
@@ -454,10 +478,8 @@ a:hover {
   .col-md-4 {
     display: none;
   }
-  .hamburger {
-    visibility: visible;
-    font-size: 30px;
-    position: relative;
+  .dropdown {
+    display: block;
   }
   .mr-auto {
     display: none;
@@ -465,11 +487,6 @@ a:hover {
 }
 
 @media (max-width: 600px) {
-  .hamburger {
-    visibility: visible;
-    font-size: 30px;
-    position: relative;
-  }
   .col-md-4 {
     display: none;
   }
@@ -482,11 +499,6 @@ a:hover {
 }
 
 @media (max-width: 489px) {
-  .hamburger {
-    visibility: visible;
-    font-size: 30px;
-    position: relative;
-  }
   .container .row {
     margin-left: 15px;
   }

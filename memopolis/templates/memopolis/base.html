@@ -19,7 +19,23 @@
                     <div class="mr-auto">
                     </div>
                     <!-- Hamburger -->
-                    <div class="hamburger"><a>&#9776;</a></div>
+                    <div class="dropdown">
+                        <a>&#9776;</a>
+                        <div class="dropdown-content hamburger">
+                            {% if user.is_authenticated %}
+                            <a class="nav-item nav-link" href="{% url 'memopolis-unaccepted' %}">Poczekalnia</a>
+                            <a class="nav-item nav-link" href="{% url 'memopolis-top' %}">Top</a>
+                            <a class="nav-item nav-link" href="{% url 'meme-create' %}">Dodaj</a>
+                            <a class="nav-item nav-link" href="{% url 'logout' %}">Wyloguj</a>
+                            <a class="nav-item nav-link" href="{% url 'profile' %}">Profil</a>
+                            {% else %}
+                            <a class="nav-item nav-link" href="{% url 'memopolis-unaccepted' %}">Poczekalnia</a>
+                            <a class="nav-item nav-link" href="{% url 'memopolis-top' %}">Top</a>
+                            <a class="nav-item nav-link" href="{% url 'login' %}">Logowanie</a>
+                            <a class="nav-item nav-link" href="{% url 'register' %}">Rejestracja</a>
+                            {% endif %}
+                        </div>
+                    </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         {% if user.is_authenticated %}
