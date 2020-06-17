@@ -8,7 +8,6 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 
 class MemeListView(ListView):
-    model = Meme
     template_name = 'memopolis/index.html'
     
     def get_context_data(self, **kwargs):
@@ -17,16 +16,28 @@ class MemeListView(ListView):
         if self.template_name == 'memopolis/index.html':
             tops = Meme.objects.order_by('-upvotes')[:3]
             context['tops']=tops
-            
-            # only accepted memes
-            memes = Meme.objects.order_by('-date_posted').filter(accepted=True)
-            context['memes']=memes
-            
-        else:
-            context = super().get_context_data(**kwargs)
 
         return context
     
+    def get(self, request):
+        context = self.get_context_data()
+        template = self.template_name
+        
+        if self.template_name == 'memopolis/index.html':
+            meme_list = Meme.objects.order_by('-date_posted').filter(accepted=True)
+        elif self.template_name == 'memopolis/top.html':
+            meme_list = Meme.objects.order_by('-upvotes').filter(accepted=True)
+        elif self.template_name == 'memopolis/unaccepted_memes.html':
+            meme_list = Meme.objects.order_by("-date_posted").filter(accepted=False)
+            
+        paginator = Paginator(meme_list, 2)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+
+        return render(request, template, context)
+
     def post(self, request):
         
         #receive vote data
@@ -66,7 +77,6 @@ class TopMemeListView(MemeListView):
         else:
             context = super().get_context_data(**kwargs)
         return context
-
     
 class UnacceptedMemeListView(MemeListView):
     template_name = 'memopolis/unaccepted_memes.html'
@@ -76,8 +86,7 @@ class UnacceptedMemeListView(MemeListView):
         memes = Meme.objects.order_by("-date_posted").filter(accepted=False)
         context['memes']=memes
         
-        return context
-    
+        return context  
     
 class MemeDetailView(DetailView):
     model = Meme
@@ -90,7 +99,6 @@ class MemeDetailView(DetailView):
         context['comments'] = comments
 
         return context
-    
     
     def post(self, request, *args, **kwargs):
         
