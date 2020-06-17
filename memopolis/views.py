@@ -94,7 +94,6 @@ class MemeDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context)
         meme = context['meme']
         comments = Comment.objects.filter(belongs_to=meme)
         context['comments'] = comments
@@ -105,25 +104,19 @@ class MemeDetailView(DetailView):
         return context
 
         
-    def form_valid(self, request):
-        form = CommentRegisterForm(request.POST)
 
-        form.save()
-        return HttpResponseRedirect("")
     
     def post(self, request, *args, **kwargs):
         
         #receive vote data
         raw = list(request.POST)[1]
         raw = raw.split(' ')
-
+        direction = 0
         if len(raw)>1:
             object_pk = raw[0]
             user_id = raw[1]
             vote = raw[2]
             direction = raw[3]
-        else:
-            direction = raw[0]
         
         if direction == 'meme':
 
@@ -165,10 +158,25 @@ class MemeDetailView(DetailView):
                     the_comment.downvoted_by+=' '+str(user_id)+','+' '+','
             the_comment.save()
             
-        elif direction == "new_comment":
-            print(direction)
+        else:
+            self.object = self.get_object()
+            form = CommentRegisterForm(data=request.POST)
+            
+            if form.is_valid():
+                new_comment = Comment()
+
+                new_comment.author_id = request.user
+                
+
+                form.is_valid()
+                content = form.cleaned_data['content']            
+                new_comment.content = content
+
+                new_comment.belongs_to = self.object
+
+                new_comment.save()
+                
         return HttpResponseRedirect("")
-    
 class MemeCreateView(CreateView):
     model = Meme
     fields = ['title','tag1','tag2','tag3','image']

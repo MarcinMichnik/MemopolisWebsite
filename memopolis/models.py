@@ -30,7 +30,7 @@ class Comment(models.Model):
     author_id = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(null=False)
     date_posted = models.DateTimeField(default=timezone.now)
-    belongs_to = models.ForeignKey(Meme, on_delete=models.CASCADE, null=True)
+    belongs_to = models.ForeignKey(Meme, on_delete=models.CASCADE)
     
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
