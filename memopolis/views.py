@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from .forms import CommentRegisterForm
 
 class MemeListView(ListView):
     template_name = 'memopolis/index.html'
@@ -97,21 +98,34 @@ class MemeDetailView(DetailView):
         meme = context['meme']
         comments = Comment.objects.filter(belongs_to=meme)
         context['comments'] = comments
+        
+        form = CommentRegisterForm()
+        context['form'] = form
 
         return context
+
+        
+    def form_valid(self, request):
+        form = CommentRegisterForm(request.POST)
+
+        form.save()
+        return HttpResponseRedirect("")
     
     def post(self, request, *args, **kwargs):
         
         #receive vote data
         raw = list(request.POST)[1]
         raw = raw.split(' ')
-        object_pk = raw[0]
-        user_id = raw[1]
-        vote = raw[2]
-        direction = raw[3]
+
+        if len(raw)>1:
+            object_pk = raw[0]
+            user_id = raw[1]
+            vote = raw[2]
+            direction = raw[3]
+        else:
+            direction = raw[0]
         
         if direction == 'meme':
-            print(object_pk, user_id, vote)
 
             #manipulate the values
             #Meme.objects.filter(pk=object_pk)
@@ -132,7 +146,6 @@ class MemeDetailView(DetailView):
             the_meme.save()
             
         elif direction == 'comment':
-            print(object_pk, user_id, vote)
 
             #manipulate the values
             #Meme.objects.filter(pk=object_pk)
@@ -152,6 +165,8 @@ class MemeDetailView(DetailView):
                     the_comment.downvoted_by+=' '+str(user_id)+','+' '+','
             the_comment.save()
             
+        elif direction == "new_comment":
+            print(direction)
         return HttpResponseRedirect("")
     
 class MemeCreateView(CreateView):

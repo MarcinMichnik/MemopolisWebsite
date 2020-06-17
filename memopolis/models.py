@@ -9,7 +9,7 @@ class Meme(models.Model):
     tag1 = models.CharField(max_length=10,null=True)
     tag2 = models.CharField(max_length=10,null=True)
     tag3 = models.CharField(max_length=10,null=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(null=True)
     date_posted = models.DateTimeField(default=timezone.now)
     
     accepted = models.BooleanField(default=False)

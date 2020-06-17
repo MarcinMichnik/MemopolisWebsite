@@ -1,4 +1,6 @@
 {% extends "memopolis/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 <div class="detailMeme">
     <div class="meme">
@@ -66,17 +68,36 @@
         </div>
     </div>
 </div>
-<div>
-    <form action="" method="post">
-        
 
-    </form>
-</div>
 <div class="comment-section">
     <div class="each-comment add-button">
         <button>+</button>
     </div>
+    <div class="each-comment">
+        <div class="author pad">
 
+            <div class="authorImg">
+                <a>
+                    <img class="rounded-circle small-img" src="{{ meme.author.profile.image.url }}">
+                </a>
+                {{ user }}
+            </div>
+
+        </div>
+        <div class="comment-content">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Nowy komentarz</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outlint-info" type="submit">Dodaj komentarz</button>
+                </div>
+               
+            </form>
+        </div>
+    </div>
 
     {% for comment in comments %}
     <div class="each-comment">
@@ -125,5 +146,7 @@
         </div>
     </div>
     {% endfor %}
+
 </div>
+<script type="text/javascript" src="{% static 'memopolis/translate.js' %}"></script>
 {% endblock content %}

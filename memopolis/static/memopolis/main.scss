@@ -93,6 +93,7 @@ body a {
 }
 .comment-content {
   min-height: 60px;
+  width:100%;
 }
 .each-comment {
   border-style: solid;
@@ -119,6 +120,10 @@ body a {
 .add-button {
   font-size: 50px;
   text-align: center;
+}
+.submit-button {
+  background-color: $primary-color;
+  color:white;
 }
 .add-button button {
   color:$primary-color;
@@ -238,12 +243,17 @@ header {
   right: 0;
   color:white;
 }
+#id_content {
+  max-height: 120px;
+}
 
 .dropdown:hover .dropdown-content {
   position: absolute;
   display: block;
 }
-
+.text textarea {
+  width:100%;
+}
 .meme .memeTitle {
   margin-top: 5px;
   margin-bottom: 3px;
