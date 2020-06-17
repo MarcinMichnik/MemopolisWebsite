@@ -62,9 +62,11 @@
                     </form>
                 </div>
                 <div class="act">
-                    <button class="comment">Skomentuj</button>
+                    <a href="{% url 'meme-detail' meme.id %}" class="comment">Skomentuj</a>
                     <button class="share">Udostępnij</button>
+                    {% if 0 %}
                     <button class="flag">Zgłoś</button>
+                    {% endif %}
                 </div>
             </div>
         </div>

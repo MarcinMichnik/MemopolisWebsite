@@ -58,9 +58,10 @@
                 </form>
             </div>
             <div class="act">
-                <button class="comment">Skomentuj</button>
                 <button class="share">Udostępnij</button>
+                {% if 0 %}
                 <button class="flag">Zgłoś</button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -72,6 +73,11 @@
     </form>
 </div>
 <div class="comment-section">
+    <div class="each-comment add-button">
+        <button>+</button>
+    </div>
+
+
     {% for comment in comments %}
     <div class="each-comment">
         <div class="author pad">
@@ -112,7 +118,9 @@
             </div>
             <div class="act">
                 <button class="comment">Odpowiedz</button>
+                {% if 0 %}
                 <button class="flag">Zgłoś</button>
+                {% endif %}
             </div>
         </div>
     </div>

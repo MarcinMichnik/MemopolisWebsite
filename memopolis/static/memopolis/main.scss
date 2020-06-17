@@ -116,7 +116,13 @@ body a {
 .actions *{
   display: flex;
 }
-
+.add-button {
+  font-size: 50px;
+  text-align: center;
+}
+.add-button button {
+  color:$primary-color;
+}
 .author {
   justify-content: stretch;
 }
@@ -215,7 +221,10 @@ header {
 .dropdown {
   position: relative;
   display: inline-block;
+}
 
+.dropdown:hover{
+  color:rgb(26, 143, 221);
 }
 
 .dropdown-content {
