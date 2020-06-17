@@ -23,7 +23,7 @@ class MemeListView(ListView):
             context['tops']=tops
             
             # only accepted memes
-            memes = Meme.objects.order_by('-upvotes').filter(accepted=True)
+            memes = Meme.objects.order_by('-date_posted').filter(accepted=True)
             context['memes']=memes
             
         else:
@@ -51,11 +51,11 @@ class MemeListView(ListView):
         if vote=='up':
             if user_id not in list_upvoted_by and user_id not in list_downvoted_by:
                 the_meme.upvotes+=1
-                the_meme.upvoted_by+=str(user_id)+', ' 
+                the_meme.upvoted_by+=' '+str(user_id)+','+' '+','
         elif vote=='down':
             if user_id not in list_downvoted_by and user_id not in list_upvoted_by:
                 the_meme.downvotes+=1
-                the_meme.downvoted_by+=str(user_id)+', ' 
+                the_meme.downvoted_by+=' '+str(user_id)+','
         the_meme.save()
         return HttpResponseRedirect("")
         
@@ -111,11 +111,11 @@ class MemeDetailView(DetailView):
             if vote=='up':
                 if user_id not in list_upvoted_by and user_id not in list_downvoted_by:
                     the_meme.upvotes+=1
-                    the_meme.upvoted_by+=str(user_id)+', ' 
+                    the_meme.upvoted_by+=' '+str(user_id)+','
             elif vote=='down':
                 if user_id not in list_downvoted_by and user_id not in list_upvoted_by:
                     the_meme.downvotes+=1
-                    the_meme.downvoted_by+=str(user_id)+', ' 
+                    the_meme.downvoted_by+=' '+str(user_id)+','
             the_meme.save()
             
         elif direction == 'comment':
@@ -132,11 +132,11 @@ class MemeDetailView(DetailView):
             if vote=='up':
                 if user_id not in list_upvoted_by and user_id not in list_downvoted_by:
                     the_comment.upvotes+=1
-                    the_comment.upvoted_by+=str(user_id)+', ' 
+                    the_comment.upvoted_by+=' '+str(user_id)+','
             elif vote=='down':
                 if user_id not in list_downvoted_by and user_id not in list_upvoted_by:
                     the_comment.downvotes+=1
-                    the_comment.downvoted_by+=str(user_id)+', ' 
+                    the_comment.downvoted_by+=' '+str(user_id)+','
             the_comment.save()
             
         return HttpResponseRedirect("")

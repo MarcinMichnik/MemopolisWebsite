@@ -17,8 +17,8 @@ class Meme(models.Model):
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     
-    upvoted_by = models.TextField(default='n, ')
-    downvoted_by = models.TextField(default='n, ')
+    upvoted_by = models.TextField(default='n, n,')
+    downvoted_by = models.TextField(default='n, n,')
     
     def __str__(self):
         return self.title
@@ -35,8 +35,8 @@ class Comment(models.Model):
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     
-    upvoted_by = models.TextField(default='n, ')
-    downvoted_by = models.TextField(default='n, ')
+    upvoted_by = models.TextField(default='n, n,')
+    downvoted_by = models.TextField(default='n, n,')
     
     def __str__(self):
         return self.content
