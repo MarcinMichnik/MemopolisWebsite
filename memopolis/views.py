@@ -10,15 +10,11 @@ from django.contrib.auth.models import User
 class MemeListView(ListView):
     model = Meme
     template_name = 'memopolis/index.html'
-    context_object_name = 'memes'
-    ordering = ['-date_posted']
-    paginate_by = 2
     
     def get_context_data(self, **kwargs):
-
         context = {}
 
-        if self.template_name == 'memopolis/index.html' or self.template_name == 'memopolis/top.html':
+        if self.template_name == 'memopolis/index.html':
             tops = Meme.objects.order_by('-upvotes')[:3]
             context['tops']=tops
             
@@ -60,17 +56,26 @@ class MemeListView(ListView):
         return HttpResponseRedirect("")
         
 class TopMemeListView(MemeListView):
-    ordering=["-upvotes"]
     template_name = 'memopolis/top.html'
     
+    def get_context_data(self, **kwargs):
+        context = {}
+        if self.template_name == 'memopolis/top.html':
+            memes = Meme.objects.order_by('-upvotes').filter(accepted=True)
+            context['memes']=memes
+        else:
+            context = super().get_context_data(**kwargs)
+        return context
+
+    
 class UnacceptedMemeListView(MemeListView):
-    ordering=["-date_posted"]
     template_name = 'memopolis/unaccepted_memes.html'
     
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = {}
+        memes = Meme.objects.order_by("-date_posted").filter(accepted=False)
+        context['memes']=memes
         
-
         return context
     
     
