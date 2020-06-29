@@ -16,7 +16,9 @@ class MemeListView(ListView):
 
         if self.template_name == 'memopolis/index.html':
             tops = Meme.objects.order_by('-num_vote_up')[:3]
+            
             context['tops']=tops
+
 
         return context
     
@@ -41,8 +43,27 @@ class MemeListView(ListView):
 
     def post(self, request):
         
+        raw = list(request.POST)[1]
+        print(raw)
+        raw = raw.split(' ')
         
+        object_pk, user_id, vote = raw[0], raw[1], raw[2]
 
+        
+        meme = Meme.objects.get(pk=object_pk)
+        
+        if vote == "up":
+            if meme.votes.exists(user_id):
+                meme.votes.delete(user_id)
+                meme.num_vote_up-=1
+            else:
+                meme.votes.up(user_id)
+                meme.num_vote_up+=1
+        
+        
+        
+        meme.save()
+        
         return HttpResponseRedirect("")
         
 class TopMemeListView(MemeListView):
@@ -86,9 +107,36 @@ class MemeDetailView(DetailView):
     
     def post(self, request, *args, **kwargs):
         
+        raw = list(request.POST)[1]
+        print(raw)
+        raw = raw.split(' ')
         
-                
-        return HttpResponseRedirect("")
+        object_pk, user_id, vote, direction = raw[0], raw[1], raw[2], raw[3]
+        
+        if direction == 'meme':
+            meme = Meme.objects.get(pk=object_pk)
+            
+            if vote == 'up':
+                if meme.votes.exists(user_id):
+                    meme.votes.delete(user_id)
+                    meme.num_vote_up-=1
+                else:
+                    meme.votes.up(user_id)
+                    meme.num_vote_up+=1
+            meme.save()
+        elif direction == 'comment':
+            comment = Comment.objects.get(pk=object_pk)
+            if vote == 'up':
+                if comment.votes.exists(user_id):
+                    comment.votes.delete(user_id)
+                    comment.num_vote_up-=1
+                else:
+                    comment.votes.up(user_id)
+                    comment.num_vote_up+=1
+            comment.save()
+        return HttpResponseRedirect('')
+    
+    
 class MemeCreateView(CreateView):
     model = Meme
     fields = ['title','image']
@@ -100,4 +148,4 @@ class MemeCreateView(CreateView):
 
     
 def kontakt(request):
-    return render(request, "memopolis/kontakt.html")
+    return render(request, 'memopolis/kontakt.html')
