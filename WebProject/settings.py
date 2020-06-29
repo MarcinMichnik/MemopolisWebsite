@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'vote',
     'users.apps.UsersConfig',
     'crispy_forms',
     'memopolis.apps.MemopolisConfig',

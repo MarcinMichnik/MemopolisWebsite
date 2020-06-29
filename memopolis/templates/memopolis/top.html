@@ -22,17 +22,7 @@
             <div class="memeTitle">
                 <a href="{% url 'meme-detail' meme.id %}">{{ meme.title }}</a>
             </div>
-            <div class="tags">
-                {% if meme.tag1 %}
-                <a>{{ meme.tag1 }}</a>
-                {% endif %}
-                {% if meme.tag2 %}
-                <a>{{ meme.tag2 }}</a>
-                {% endif %}
-                {% if meme.tag3 %}
-                <a>{{ meme.tag3 }}</a>
-                {% endif %}
-            </div>
+
             <div class="memeImg">
                 <a href="{% url 'meme-detail' meme.id %}">
                     <img src="{{ meme.image.url }}">
@@ -45,9 +35,9 @@
                         {% csrf_token %}
                         {% if user.is_authenticated %}
                         <button type="submit" name="{{ meme.pk }} {{ user.id }} up"
-                            class="upvotes">{{ meme.upvotes }}</button>
+                            class="upvotes">0</button>
                         {% else %}
-                        <a class="upvotes">{{ meme.upvotes }}</a>
+                        <a class="upvotes">0</a>
                         {% endif %}
                     </form>
                 </div>
@@ -56,9 +46,9 @@
                         {% csrf_token %}
                         {% if user.is_authenticated %}
                         <button type="submit" name="{{ meme.pk }} {{ user.id }} down"
-                            class="downvotes">{{ meme.downvotes }}</button>
+                            class="downvotes">0</button>
                         {% else %}
-                        <a class="downvotes">{{ meme.downvotes }}</a>
+                        <a class="downvotes">0</a>
                         {% endif %}
                     </form>
                 </div>
