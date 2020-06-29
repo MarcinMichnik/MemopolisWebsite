@@ -13,6 +13,14 @@ iframe {
   display: none;
 }
 
+.veil {
+  display: none;
+}
+
+.reveal {
+  display: block;
+}
+
 .navbar {
   justify-content: initial;
 }
@@ -31,7 +39,9 @@ body a {
   margin-bottom: 20px;
 }
 
-#div_id_tag1, #div_id_tag2, #div_id_tag3 {
+#div_id_tag1,
+#div_id_tag2,
+#div_id_tag3 {
   width: 32%;
   display: inline-block;
 }
@@ -337,12 +347,15 @@ button {
   border: none;
 }
 
-.comment, .share, .flag {
+.comment,
+.share,
+.flag {
   background-color: #185a8a;
   color: whitesmoke;
 }
 
-.downvotes, .upvotes {
+.downvotes,
+.upvotes {
   background-color: #185a8a;
 }
 

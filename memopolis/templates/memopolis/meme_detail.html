@@ -48,9 +48,9 @@
 
 <div class="comment-section">
     <div class="each-comment add-button">
-        <button>+</button>
+        <button onclick="reveal()">+</button>
     </div>
-    <div class="each-comment">
+    <div class="each-comment veil">
         <div class="author pad">
 
             <div class="authorImg">
@@ -113,5 +113,6 @@
     {% endfor %}
 
 </div>
-<script type="text/javascript" src="{% static 'memopolis/translate.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'memopolis/reveal.js' %}"></script>
 {% endblock content %}

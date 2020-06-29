@@ -5,13 +5,24 @@ body {
   color: #333333;
   font-family: 'Segoe UI', sans-serif;
 }
+
 .account-img {
-  width:100px !important;
-  height:100px !important;
+  width: 100px !important;
+  height: 100px !important;
 }
-iframe{
+
+iframe {
   display: none;
 }
+
+.veil {
+  display: none;
+}
+
+.reveal {
+  display: block;
+}
+
 .navbar {
   justify-content: initial;
 }
@@ -19,6 +30,7 @@ iframe{
 body a {
   text-decoration: none;
 }
+
 .top img {
   width: 270px;
   height: 200px;
@@ -26,11 +38,13 @@ body a {
 }
 
 .top {
-  border-style:solid;
+  border-style: solid;
   margin-bottom: 20px;
 }
 
-#div_id_tag1, #div_id_tag2, #div_id_tag3 {
+#div_id_tag1,
+#div_id_tag2,
+#div_id_tag3 {
   width: 32%;
   display: inline-block;
 }
@@ -39,8 +53,8 @@ body a {
   background-color: $primary-color;
 }
 
-.site-header{
-  margin-bottom:0px;
+.site-header {
+  margin-bottom: 0px;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -59,8 +73,8 @@ body a {
   padding: 0px 20px;
   border: solid $primary-color;
   border-radius: 3px;
-  margin-top:10px;
-  min-height:500px;
+  margin-top: 10px;
+  min-height: 500px;
   width: 320px;
   background-color: rgb(238, 238, 238);
 }
@@ -88,22 +102,27 @@ body a {
   background-color: rgb(112, 226, 112);
   text-align: center;
 }
+
 .pad {
-  padding:3px;
+  padding: 3px;
 }
+
 .comment-content {
   min-height: 60px;
-  width:100%;
+  width: 100%;
 }
+
 .each-comment {
   border-style: solid;
   border-color: $primary-color;
-  margin-bottom:20px;
-  padding:5px;
+  margin-bottom: 20px;
+  padding: 5px;
 }
+
 .hidden {
-  display:none !important;
+  display: none !important;
 }
+
 .actions,
 .author {
   display: flex;
@@ -114,20 +133,24 @@ body a {
   color: whitesmoke;
 }
 
-.actions *{
+.actions * {
   display: flex;
 }
+
 .add-button {
   font-size: 50px;
   text-align: center;
 }
+
 .submit-button {
   background-color: $primary-color;
-  color:white;
+  color: white;
 }
+
 .add-button button {
-  color:$primary-color;
+  color: $primary-color;
 }
+
 .author {
   justify-content: stretch;
 }
@@ -161,9 +184,11 @@ a {
   max-width: 100%;
   max-height: 100%;
 }
+
 .center {
   text-align: center;
 }
+
 button:hover {
   cursor: pointer;
   color: #6db6eb;
@@ -210,11 +235,12 @@ header {
   margin-bottom: 14px;
   padding: 10px;
   background-color: $primary-color;
-  color:whitesmoke;
+  color: whitesmoke;
 
 }
+
 .step-links a {
-  color:whitesmoke;
+  color: whitesmoke;
 }
 
 
@@ -228,8 +254,8 @@ header {
   display: inline-block;
 }
 
-.dropdown:hover{
-  color:rgb(26, 143, 221);
+.dropdown:hover {
+  color: rgb(26, 143, 221);
 }
 
 .dropdown-content {
@@ -237,12 +263,13 @@ header {
   position: absolute;
   background-color: $primary-color;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
   right: 0;
-  color:white;
+  color: white;
 }
+
 #id_content {
   max-height: 120px;
 }
@@ -251,9 +278,11 @@ header {
   position: absolute;
   display: block;
 }
+
 .text textarea {
-  width:100%;
+  width: 100%;
 }
+
 .meme .memeTitle {
   margin-top: 5px;
   margin-bottom: 3px;
@@ -268,6 +297,7 @@ header {
 .collapse {
   display: flex;
 }
+
 .dropdown a {
   color: white;
   font-size: 36px;
@@ -299,9 +329,11 @@ header {
   text-align: left;
   padding-top: 17px;
 }
+
 .dropdown {
-  display:none;
+  display: none;
 }
+
 .user-app-wrap {
   display: flex;
   justify-content: center;
@@ -322,13 +354,19 @@ header {
 button {
   border: none;
 }
-.comment,.share,.flag {
+
+.comment,
+.share,
+.flag {
   background-color: $primary-color;
-  color:whitesmoke;
+  color: whitesmoke;
 }
-.downvotes,.upvotes{
+
+.downvotes,
+.upvotes {
   background-color: $primary-color;
 }
+
 a:hover {
   text-decoration: none;
   color: #6db6eb;
@@ -357,7 +395,7 @@ a:hover {
 }
 
 #profile {
-  width:initial;
+  width: initial;
 }
 
 .navimg {
@@ -365,6 +403,7 @@ a:hover {
   height: 50px;
   margin-left: 8px;
 }
+
 #div_id_image a {
   font-size: 14px;
 }
@@ -373,8 +412,8 @@ a:hover {
   width: 16px;
   height: 16px;
   margin-bottom: 2px;
-  margin-left:5px;
-  margin-right:5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 @media (max-width: 1100px) {
@@ -388,7 +427,7 @@ a:hover {
 
   .top img {
     width: 228px;
-  
+
   }
 }
 
@@ -400,9 +439,10 @@ a:hover {
   .content-section {
     width: 260px;
   }
+
   .top img {
     width: 210px;
-  
+
   }
 }
 
@@ -414,9 +454,10 @@ a:hover {
   .content-section {
     width: 230px;
   }
+
   .top img {
     width: 179px;
-  
+
   }
 }
 
@@ -520,8 +561,9 @@ a:hover {
 
 
   .dropdown {
-    display:block;
+    display: block;
   }
+
   .mr-auto {
     display: none;
   }
@@ -536,6 +578,7 @@ a:hover {
   .pagination * {
     font-size: 11px;
   }
+
   .memeTitle {
     font-size: 28px;
   }
