@@ -34,29 +34,15 @@
                         {% csrf_token %}
                         {% if user.is_authenticated %}
                         <button type="submit" name="{{ meme.pk }} {{ user.id }} up"
-                            class="upvotes">0</button>
+                            class="upvotes">{{ meme.num_vote_up }}</button>
                         {% else %}
-                        <a class="upvotes">0</a>
-                        {% endif %}
-                    </form>
-                </div>
-                <div class="votes">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {% if user.is_authenticated %}
-                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down"
-                            class="downvotes">0</button>
-                        {% else %}
-                        <a class="downvotes">0</a>
+                        <a class="upvotes">{{ meme.num_vote_up }}</a>
                         {% endif %}
                     </form>
                 </div>
                 <div class="act">
                     <a href="{% url 'meme-detail' meme.id %}" class="comment">Skomentuj</a>
                     <button class="share">Udostępnij</button>
-                    {% if 0 %}
-                    <button class="flag">Zgłoś</button>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -98,5 +84,4 @@
         {% endif %}
     </div>
 </div>
-<script src="static/memopolis/vote.js"></script>
 {% endblock content %}
