@@ -328,6 +328,14 @@ header {
   text-decoration: none;
 }
 
+.margin-top {
+  margin-top: 10px;
+}
+
+.margin-top2 {
+  margin-top: 15px;
+}
+
 .nav-item {
   font-size: 20px;
   padding: 10px;
