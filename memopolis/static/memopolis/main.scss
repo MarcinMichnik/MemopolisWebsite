@@ -294,7 +294,9 @@ header {
 .text textarea {
   width: 100%;
 }
-
+.actions *{
+  padding-left: 10px;
+}
 .meme .memeTitle {
   margin-top: 5px;
   margin-bottom: 3px;
