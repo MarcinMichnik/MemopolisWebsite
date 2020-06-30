@@ -3,10 +3,18 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from vote.models import VoteModel
+
+class Tag(models.Model):
+    name = models.CharField(max_length=10, null=True)
+    
+    def __str__(self):
+        return self.name
     
 class Meme(VoteModel, models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=40)
+
+    tags = models.ManyToManyField(Tag, blank=False)
 
     image = models.ImageField(null=True)
     date_posted = models.DateTimeField(default=timezone.now)
@@ -28,9 +36,3 @@ class Comment(VoteModel, models.Model):
     def __str__(self):
         return self.content
     
-class Tag(models.Model):
-    name = models.CharField(max_length=10, null=True)
-    belongs_to = models.ManyToManyField(Meme, blank=False)
-    
-    def __str__(self):
-        return self.name

@@ -138,7 +138,7 @@ class MemeDetailView(DetailView):
     
 class MemeCreateView(CreateView):
     model = Meme
-    fields = ['title','image']
+    fields = ['title','image','tags']
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -146,7 +146,7 @@ class MemeCreateView(CreateView):
     
 class MemeUpdateView(UpdateView):
     model = Meme
-    fields = ['title','image']
+    fields = ['title','tags']
     
     def form_valid(self, form):
         form.instance.author = self.request.user
