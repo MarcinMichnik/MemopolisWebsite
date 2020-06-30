@@ -30,7 +30,7 @@ class Comment(VoteModel, models.Model):
     
 class Tag(models.Model):
     name = models.CharField(max_length=10, null=True)
-    belongs_to = models.ManyToManyField(Meme, null=True, blank=False)
+    belongs_to = models.ManyToManyField(Meme, blank=False)
     
     def __str__(self):
         return self.name

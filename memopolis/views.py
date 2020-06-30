@@ -136,7 +136,6 @@ class MemeDetailView(DetailView):
             comment.save()
         return HttpResponseRedirect('')
     
-    
 class MemeCreateView(CreateView):
     model = Meme
     fields = ['title','image']
@@ -145,7 +144,21 @@ class MemeCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
-
+class YourMemesListView(ListView):
+    template_name = 'memopolis/your_memes.html'
     
+    def get(self, request):
+        template=self.template_name
+        memes = Meme.objects.filter(author=request.user.id).order_by('-date_posted')
+
+        context = {}
+        
+        paginator = Paginator(memes, 2)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        
+        return render(request, template, context)
+        
 def kontakt(request):
     return render(request, 'memopolis/kontakt.html')

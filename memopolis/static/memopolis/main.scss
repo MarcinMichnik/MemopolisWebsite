@@ -64,16 +64,26 @@ body a {
 .site-header .navbar-nav .nav-link:hover {
   color: #ffffff;
 }
-
+.your-memes {
+  margin-top:12px;
+}
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
 }
-
+hr {
+  color: $primary-color;
+}
+.submenu * {
+  margin-right: 10px;
+  color:#cbd5db;
+}
+.submenu {
+  background-color: $primary-color;
+}
 .content-section {
   padding: 0px 20px;
   border: solid $primary-color;
   border-radius: 3px;
-  margin-top: 10px;
   min-height: 500px;
   width: 320px;
   background-color: rgb(238, 238, 238);
@@ -160,7 +170,9 @@ a {
 .tags a {
   font-size: 14px;
 }
-
+.media {
+  padding-top: 15px;
+}
 .upvotes {
   color: rgb(148, 236, 148);
   font-weight: bolder;

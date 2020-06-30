@@ -2,6 +2,12 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
+
+{% if user.is_authenticated %}
+<div>
+    Tags
+</div>
+{% endif %}
 <div class="detailMeme">
     <div class="meme">
         <div class="author">
