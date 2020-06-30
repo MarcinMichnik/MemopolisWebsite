@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Meme, Comment
 from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
@@ -137,6 +137,14 @@ class MemeDetailView(DetailView):
         return HttpResponseRedirect('')
     
 class MemeCreateView(CreateView):
+    model = Meme
+    fields = ['title','image']
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+class MemeUpdateView(UpdateView):
     model = Meme
     fields = ['title','image']
     
