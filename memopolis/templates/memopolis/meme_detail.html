@@ -3,11 +3,16 @@
 {% load static %}
 {% block content %}
 
-{% if user.is_authenticated %}
-<div>
-    Tags
+{% if user.id == meme.author.id %}
+<hr>
+<div class="navbar container submenu">
+    <div>
+        <a href="#">Edytuj mem</a>
+    </div>
 </div>
+<hr>
 {% endif %}
+
 <div class="detailMeme">
     <div class="meme">
         <div class="author">
