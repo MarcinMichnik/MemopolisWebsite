@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Meme, Comment
 from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
@@ -136,16 +136,37 @@ class MemeDetailView(DetailView):
             comment.save()
         return HttpResponseRedirect('')
     
-    
 class MemeCreateView(CreateView):
     model = Meme
-    fields = ['title','image']
+    fields = ['title','image','tags']
     
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
-
+class MemeUpdateView(UpdateView):
+    model = Meme
+    fields = ['title','tags']
     
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+class YourMemesListView(ListView):
+    template_name = 'memopolis/your_memes.html'
+    
+    def get(self, request):
+        template=self.template_name
+        memes = Meme.objects.filter(author=request.user.id).order_by('-date_posted')
+
+        context = {}
+        
+        paginator = Paginator(memes, 2)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        
+        return render(request, template, context)
+        
 def kontakt(request):
     return render(request, 'memopolis/kontakt.html')

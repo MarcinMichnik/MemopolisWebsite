@@ -1,0 +1,52 @@
+{% extends "memopolis/base.html" %}
+{% load static %}
+{% block content %}
+<div id="content">
+    <div class="col-md-4">
+        <div class="content-section your-memes">
+            <a>Twoje memy</a>
+            {% for meme in page_obj %}
+            <div class="top">
+                <a href="{% url 'meme-detail' meme.id %}">{{ meme }}</a>
+                <a href="{% url 'meme-detail' meme.id %}"><img src="{{ meme.image.url }}"></a>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="pagination">
+    <div class="step-links">
+        {% if page_obj.has_previous %}
+        <div class="prev">
+            <a href="?page=1">&laquo; Pierwsza</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Poprzednia</a>
+        </div>
+        {% endif %}
+        {% if not page_obj.has_previous %}
+        <div class="prev">
+            <a>&laquo; Pierwsza</a>
+            <a>Poprzednia</a>
+        </div>
+        {% endif %}
+
+        <div class="current">
+            Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+        </div>
+
+        {% if page_obj.has_next %}
+        <div class="forth">
+            <a href="?page={{ page_obj.next_page_number }}">Następna</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Ostatnia &raquo;</a>
+        </div>
+        {% endif %}
+        {% if not page_obj.has_next %}
+        <div class="forth">
+            <a>Następna</a>
+            <a>Ostatnia &raquo;</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

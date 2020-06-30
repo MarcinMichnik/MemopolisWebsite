@@ -2,6 +2,17 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
+
+{% if user.id == meme.author.id %}
+<hr>
+<div class="navbar container submenu">
+    <div>
+        <a href="{% url 'meme-edit' meme.pk %}">Edytuj mem</a>
+    </div>
+</div>
+<hr>
+{% endif %}
+
 <div class="detailMeme">
     <div class="meme">
         <div class="author">
@@ -20,7 +31,11 @@
         <div class="memeTitle">
             <a>{{ meme.title }}</a>
         </div>
-
+        <div class="tags">
+            {% for tag in meme.tags.all %}
+            <a>{{ tag }}</a>
+            {% endfor %}
+        </div>
         <div class="memeImg">
             <a>
                 <img src="{{ meme.image.url }}">
@@ -39,7 +54,6 @@
                 </form>
             </div>
             <div class="act">
-                <button class="share">Udostępnij</button>
 
             </div>
         </div>
