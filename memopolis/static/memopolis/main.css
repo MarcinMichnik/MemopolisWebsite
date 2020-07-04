@@ -117,6 +117,10 @@ hr {
   padding: 3px;
 }
 
+#title-data, #like-data {
+  display: none;
+}
+
 .comment-content {
   min-height: 60px;
   width: 100%;
@@ -127,6 +131,14 @@ hr {
   border-color: #185a8a;
   margin-bottom: 20px;
   padding: 5px;
+}
+
+.results {
+  display: flex;
+}
+
+.center {
+  text-align: center;
 }
 
 .hidden {
@@ -155,6 +167,10 @@ hr {
 .submit-button {
   background-color: #185a8a;
   color: white;
+}
+
+.green {
+  color: #5bdf5b;
 }
 
 .add-button button {
@@ -360,6 +376,13 @@ header {
   display: none;
 }
 
+.bag {
+  width: 200px;
+  text-align: center;
+  padding-left: 10px;
+  font-size: 25px;
+}
+
 .user-app-wrap {
   display: flex;
   justify-content: center;
@@ -470,7 +493,7 @@ a:hover {
     font-size: 14px;
   }
   .content-section {
-    width: 230px;
+    width: 250px;
   }
   .top img {
     width: 179px;
@@ -486,6 +509,12 @@ a:hover {
   }
   .container .row {
     margin-left: 105px;
+  }
+  .results {
+    display: block;
+  }
+  .chart {
+    margin-left: -65px;
   }
   .content {
     display: flex !important;
@@ -528,7 +557,7 @@ a:hover {
     font-size: 13px;
   }
   .content-section {
-    width: 190px;
+    width: 250px;
   }
 }
 
@@ -537,17 +566,23 @@ a:hover {
   .pagination * {
     font-size: 11px;
   }
+  .mobilewidth {
+    width: 100% !important;
+  }
   #navbarToggle {
     display: block;
+  }
+  .content-section {
+    width: 240px;
+  }
+  .col-md-4 {
+    display: none;
   }
   .navbar-nav {
     display: none;
   }
   .container {
     flex-wrap: nowrap !important;
-  }
-  .col-md-4 {
-    display: none;
   }
   .dropdown {
     display: block;
@@ -558,9 +593,6 @@ a:hover {
 }
 
 @media (max-width: 600px) {
-  .col-md-4 {
-    display: none;
-  }
   .pagination * {
     font-size: 11px;
   }
@@ -572,9 +604,6 @@ a:hover {
 @media (max-width: 489px) {
   .container .row {
     margin-left: 15px;
-  }
-  .col-md-4 {
-    display: none;
   }
   .pagination * {
     font-size: 7px;

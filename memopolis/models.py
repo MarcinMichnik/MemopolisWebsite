@@ -12,7 +12,7 @@ class Tag(models.Model):
     
 class Meme(VoteModel, models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=40)
+    title = models.CharField(max_length=25)
 
     tags = models.ManyToManyField(Tag, blank=False)
 
@@ -28,7 +28,7 @@ class Meme(VoteModel, models.Model):
         return reverse('meme-detail', kwargs={'pk':self.pk})
     
 class Comment(VoteModel, models.Model):
-    author_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(null=False)
     date_posted = models.DateTimeField(default=timezone.now)
     belongs_to = models.ForeignKey(Meme, on_delete=models.CASCADE, null=True, blank=False)

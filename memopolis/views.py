@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from .models import Meme, Comment
 from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import (TemplateView, 
+                                  ListView, 
+                                  DetailView, 
+                                  CreateView, 
+                                  UpdateView)
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
@@ -108,7 +112,8 @@ class MemeDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         
         raw = request.POST
-
+        
+        
         if list(raw)[1]!='content':
             raw = list(request.POST)[1]
             raw = raw.split(' ')
@@ -146,7 +151,7 @@ class MemeDetailView(DetailView):
             comment = Comment()
 
             comment.content = raw
-            comment.author_id=request.user
+            comment.author=request.user
             print(comment)
             self.object = self.get_object()
             context = self.get_context_data()
@@ -188,6 +193,36 @@ class YourMemesListView(ListView):
         context['page_obj'] = page_obj
         
         return render(request, template, context)
+
+class YourPointsView(TemplateView):
+    template_name = 'memopolis/your_points.html'
+
+    def get(self, request):
+        template=self.template_name
         
+        context = {}
+        
+        memes = Meme.objects.filter(author=request.user.id).order_by('-num_vote_up')[:5]
+        context['memes'] = memes
+
+        meme_like_dict = {} 
+        for meme in memes:
+            meme_like_dict[meme]=meme.num_vote_up
+        context['meme_like_dict'] = meme_like_dict
+        
+        like_sum = 0
+        all_memes = Meme.objects.filter(author=request.user.id)
+        for meme in all_memes:
+            like_sum+=meme.num_vote_up
+        context['like_sum']=like_sum
+        
+        js_meme_title_list = [meme.title for meme in memes]
+        context['js_meme_title_list'] = js_meme_title_list
+        
+        js_meme_like_list = [meme.num_vote_up for meme in memes]
+        context['js_meme_like_list'] = js_meme_like_list
+        
+        return render(request, template, context)
+   
 def kontakt(request):
     return render(request, 'memopolis/kontakt.html')
