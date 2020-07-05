@@ -1,5 +1,4 @@
 {% extends "memopolis/base.html" %}
-{% load static %}
 {% block content %}
 <div class="container results">
     <div class="chart">
@@ -9,7 +8,7 @@
         <div class="container center">
             <h1>Top 5</h1>
         </div>
-        {% for meme in meme_like_dict %}
+        {% for meme in memes %}
         <div class="container border m-3 mobilewidth">
             <div>
                 <a href="{% url 'meme-detail' meme.id %}">{{ meme.title }}</a>
@@ -24,10 +23,36 @@
             <h1>Razem: <span class="green">{{ like_sum }}</span></h1>
         </div>
     </div>
-
-    <div id="title-data">{{js_meme_title_list}}</div>
-    <div id="like-data">{{js_meme_like_list}}</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-<script type="text/javascript" src="{% static 'memopolis/barchart.js' %}"></script>
+
+<script>
+    const title_data = {{ js_meme_titles | safe }};
+
+    const like_data = {{ js_meme_likes | safe }};
+
+    new Chart(document.getElementById("bar-chart"), {
+        type: 'bar',
+        data: {
+        labels: title_data,
+        datasets: [
+            {
+            label: "Punkty",
+            backgroundColor: "rgb(91, 223, 91)",
+            data: like_data
+            }
+        ]
+        },
+        options: {
+        legend: { display: false },
+        title: {
+            display: true,
+            text: 'Twoje punkty'
+        }
+        }
+    });
+
+</script>
+
 {% endblock content %}
+
