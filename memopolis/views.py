@@ -48,7 +48,7 @@ class MemeListView(ListView):
     def post(self, request):
         
         raw = list(request.POST)[1]
-        print(raw)
+
         raw = raw.split(' ')
         
         object_pk, user_id, vote = raw[0], raw[1], raw[2]
@@ -117,7 +117,6 @@ class MemeDetailView(DetailView):
         if list(raw)[1]!='content':
             raw = list(request.POST)[1]
             raw = raw.split(' ')
-            print(raw)
             object_pk, user_id, vote, direction = raw[0], raw[1], raw[2], raw[3]
 
         else:
@@ -125,7 +124,6 @@ class MemeDetailView(DetailView):
             direction='create_comment'
         
         if direction == 'meme':
-            print('s')
             meme = Meme.objects.get(pk=object_pk)
             
             if vote == 'up':
@@ -152,7 +150,6 @@ class MemeDetailView(DetailView):
 
             comment.content = raw
             comment.author=request.user
-            print(comment)
             self.object = self.get_object()
             context = self.get_context_data()
 
