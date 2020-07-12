@@ -1,12 +1,18 @@
 from django.shortcuts import render
 from .models import Meme, Comment
 from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import (TemplateView, 
+                                  ListView, 
+                                  DetailView, 
+                                  CreateView, 
+                                  UpdateView,
+                                  DeleteView)
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from .forms import CommentRegisterForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class MemeListView(ListView):
     template_name = 'memopolis/index.html'
@@ -44,7 +50,7 @@ class MemeListView(ListView):
     def post(self, request):
         
         raw = list(request.POST)[1]
-        print(raw)
+
         raw = raw.split(' ')
         
         object_pk, user_id, vote = raw[0], raw[1], raw[2]
@@ -107,11 +113,17 @@ class MemeDetailView(DetailView):
     
     def post(self, request, *args, **kwargs):
         
-        raw = list(request.POST)[1]
-        print(raw)
-        raw = raw.split(' ')
+        raw = request.POST
         
-        object_pk, user_id, vote, direction = raw[0], raw[1], raw[2], raw[3]
+        
+        if list(raw)[1]!='content':
+            raw = list(request.POST)[1]
+            raw = raw.split(' ')
+            object_pk, user_id, vote, direction = raw[0], raw[1], raw[2], raw[3]
+
+        else:
+            raw = request.POST['content']
+            direction='create_comment'
         
         if direction == 'meme':
             meme = Meme.objects.get(pk=object_pk)
@@ -134,6 +146,19 @@ class MemeDetailView(DetailView):
                     comment.votes.up(user_id)
                     comment.num_vote_up+=1
             comment.save()
+            
+        elif direction == 'create_comment':
+            comment = Comment()
+
+            comment.content = raw
+            comment.author=request.user
+            self.object = self.get_object()
+            context = self.get_context_data()
+
+            comment.belongs_to = context['meme']
+            
+            
+            comment.save()
         return HttpResponseRedirect('')
     
 class MemeCreateView(CreateView):
@@ -144,13 +169,19 @@ class MemeCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
-class MemeUpdateView(UpdateView):
+class MemeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Meme
     fields = ['title','tags']
     
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+    def test_func(self):
+        meme = self.get_object()
+        if self.request.user == meme.author:
+            return True
+        return False
     
 class YourMemesListView(ListView):
     template_name = 'memopolis/your_memes.html'
@@ -167,6 +198,45 @@ class YourMemesListView(ListView):
         context['page_obj'] = page_obj
         
         return render(request, template, context)
+
+class YourPointsView(TemplateView):
+    template_name = 'memopolis/your_points.html'
+
+    def get(self, request):
+        template=self.template_name
         
+        context = {}
+        
+        memes = Meme.objects.filter(author=request.user.id).order_by('-num_vote_up')[:5]
+        context['memes'] = memes
+        
+        like_sum = 0
+        all_memes = Meme.objects.filter(author=request.user.id)
+        for meme in all_memes:
+            like_sum+=meme.num_vote_up
+        context['like_sum']=like_sum
+        
+        js_meme_titles = [meme.title for meme in memes]
+        import json
+        js_meme_titles = json.dumps(js_meme_titles)
+        context['js_meme_titles'] = js_meme_titles
+        
+        js_meme_likes = [meme.num_vote_up for meme in memes]
+        #import json
+        js_meme_likes = json.dumps(js_meme_likes)
+        context['js_meme_likes'] = js_meme_likes
+        
+        return render(request, template, context)
+   
+class MemeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Meme
+    success_url = '/'
+    
+    def test_func(self):
+        meme = self.get_object()
+        if self.request.user == meme.author:
+            return True
+        return False
+    
 def kontakt(request):
     return render(request, 'memopolis/kontakt.html')

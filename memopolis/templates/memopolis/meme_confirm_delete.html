@@ -1,0 +1,20 @@
+{% extends "memopolis/base.html" %}
+{% block content %}
+<div class="user-app-wrap">
+    <div class="content-section top-margin">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Usuwanie</legend>
+                <h5>Na pewno usunąć mem "{{ object.title }}"?</h5>
+            </fieldset>
+            <div class="form-group">
+                <a class="btn btn-outline-secondary" href="{% url 'meme-detail' object.id %}">Nie usuwaj</a>
+                <button class="btn btn-outline-danger" type="submit">Usuń</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,22 +1,28 @@
 
 const title = document.querySelector('label.requiredField');
 
-if (title.innerText=='Title*') {
+if (title.innerText==='Title*') {
     title.innerText = 'Tytuł*';
 }
 
-else if (title.innerText=='Content*'){
+else if (title.innerText==='Content*'){
     title.innerText = 'Tekst*';
 }
 
 
 
-const img = document.querySelectorAll('label.requiredField')[1];
-if (img.innerText = 'Image*') {
-    img.innerText = 'Obrazek*';
+const second = document.querySelectorAll('label.requiredField')[1];
+if (second.innerText ==='Image*') {
+    second.innerText = 'Obrazek*';
+}
+else if (second.innerText === 'Tags*') {
+    second.innerText = 'Tagi*';
 }
 
-const tags = document.querySelectorAll('label.requiredField')[2];
-if (tags.innerText = 'Tags*') {
-    tags.innerText = 'Tagi*';
+const third = document.querySelectorAll('label.requiredField')[2];
+if (third.innerText === 'Tags*') {
+    third.innerText = 'Tagi*';
+}
+else if (third.innerText === 'Image*') {
+    third.innerText = 'Obrazek*';
 }

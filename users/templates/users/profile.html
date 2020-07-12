@@ -1,5 +1,6 @@
 {% extends "memopolis/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 <hr>
 <div class="navbar container submenu">
@@ -7,7 +8,7 @@
     <a href="{% url 'memopolis-your-memes' %}">Twoje memy</a>
   </div>
   <div>
-    <a href="#">Twoje punkty</a>
+    <a href="{% url 'memopolis-your-points' %}">Twoje punkty</a>
   </div>
 </div>
 <hr>
@@ -31,4 +32,5 @@
     </div>
   </form>
 </div>
+<script type="text/javascript" src="{% static 'memopolis/translate.js' %}"></script>
 {% endblock content %}
