@@ -5,12 +5,14 @@ from django.views.generic import (TemplateView,
                                   ListView, 
                                   DetailView, 
                                   CreateView, 
-                                  UpdateView)
+                                  UpdateView,
+                                  DeleteView)
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from .forms import CommentRegisterForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class MemeListView(ListView):
     template_name = 'memopolis/index.html'
@@ -167,13 +169,19 @@ class MemeCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
-class MemeUpdateView(UpdateView):
+class MemeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Meme
     fields = ['title','tags']
     
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+    def test_func(self):
+        meme = self.get_object()
+        if self.request.user == meme.author:
+            return True
+        return False
     
 class YourMemesListView(ListView):
     template_name = 'memopolis/your_memes.html'
@@ -220,5 +228,15 @@ class YourPointsView(TemplateView):
         
         return render(request, template, context)
    
+class MemeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Meme
+    success_url = '/'
+    
+    def test_func(self):
+        meme = self.get_object()
+        if self.request.user == meme.author:
+            return True
+        return False
+    
 def kontakt(request):
     return render(request, 'memopolis/kontakt.html')

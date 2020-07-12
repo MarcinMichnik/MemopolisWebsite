@@ -6,7 +6,8 @@ from .views import (MemeListView,
                     TopMemeListView, 
                     UnacceptedMemeListView, 
                     YourMemesListView,
-                    YourPointsView)
+                    YourPointsView,
+                    MemeDeleteView)
 from . import views
 
 urlpatterns = [
@@ -19,4 +20,5 @@ urlpatterns = [
     path('profil/memy/', YourMemesListView.as_view(), name="memopolis-your-memes"),
     path('profil/punkty/', YourPointsView.as_view(), name="memopolis-your-points"),
     path('meme/<int:pk>/edytuj/', MemeUpdateView.as_view(), name="meme-edit"),
+    path('meme/<int:pk>/usuń/', MemeDeleteView.as_view(), name="meme-delete"),
 ]
