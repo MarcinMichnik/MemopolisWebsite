@@ -135,6 +135,7 @@ hr {
 
 .results {
   display: flex;
+  margin-top: 20px;
 }
 
 .center {
