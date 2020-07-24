@@ -20,8 +20,8 @@
                     </div>
                     <!-- Hamburger -->
                     <div class="dropdown">
-                        <a>&#9776;</a>
-                        <div class="dropdown-content hamburger">
+                        <button class="dropbtn" onclick="dropdown()">&#9776;</button>
+                        <div id="myDropdown" class="dropdown-content hamburger">
                             {% if user.is_authenticated %}
                             <a class="nav-item nav-link" href="{% url 'memopolis-unaccepted' %}">Poczekalnia</a>
                             <a class="nav-item nav-link" href="{% url 'memopolis-top' %}">Top</a>
@@ -68,5 +68,5 @@
         {% block content %}{% endblock %}
     </main>
 </body>
-
+<script type="text/javascript" src="{% static 'memopolis/dropdown.js' %}"></script>
 </html>

@@ -120,9 +120,12 @@ hr {
 .pad {
   padding: 3px;
 }
-#title-data, #like-data {
-  display:none;
+
+#title-data,
+#like-data {
+  display: none;
 }
+
 .comment-content {
   min-height: 60px;
   width: 100%;
@@ -134,13 +137,16 @@ hr {
   margin-bottom: 20px;
   padding: 5px;
 }
+
 .results {
-  display:flex;
+  display: flex;
   margin-top: 20px;
 }
+
 .center {
   text-align: center;
 }
+
 .hidden {
   display: none !important;
 }
@@ -470,6 +476,56 @@ a:hover {
   margin-right: 5px;
 }
 
+/* Dropdown Button */
+.dropbtn {
+  background-color: $primary-color;
+  color: white;
+  padding: 16px;
+  font-size: 32px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: $primary-color;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+
 @media (max-width: 1100px) {
   .pagination * {
     font-size: 16px;
@@ -527,12 +583,15 @@ a:hover {
   .container .row {
     margin-left: 105px;
   }
+
   .results {
     display: block;
   }
+
   .chart {
     margin-left: -65px;
   }
+
   .content {
     display: flex !important;
     justify-content: center !important;
