@@ -15,7 +15,7 @@ class TagTest(TestCase):
         self.assertEqual(tag.__str__(), tag.name)
         
 class MemeTest(TestCase):
-    def create_meme(self, title="Whatever", accepted=False):
+    def create_meme(self, title="Test Title", accepted=False):
         author = User.objects.create()
         return Meme.objects.create(author=author, title=title, accepted=accepted)
 
@@ -26,7 +26,7 @@ class MemeTest(TestCase):
         self.assertEqual(meme.get_absolute_url(), '/meme/1/')
         
 class CommentTest(TestCase):
-    def create_comment(self, content="A clown is being scary"):
+    def create_comment(self, content="This is a test."):
         author = User.objects.create()
         belongs_to = Meme.objects.create(author=author)
         return Comment.objects.create(author=author,content=content)
@@ -35,3 +35,36 @@ class CommentTest(TestCase):
         comment = self.create_comment()
         self.assertTrue(isinstance(comment, Comment))
         self.assertEqual(comment.__str__(), comment.content)
+
+
+# views (uses reverse)
+
+def test_memopolis_list_view(self):
+    view = self.create_whatever()
+    url = reverse("whatever.views.whatever")
+    resp = self.client.get(url)
+
+    self.assertEqual(resp.status_code, 200)
+    self.assertIn(w.title, resp.content)
+    
+# views (uses selenium)
+
+import unittest
+from selenium import webdriver
+class TestDataChange(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+
+    def test_data_change_fire(self):
+        self.driver.get("http://localhost:8000/profil")
+        self.driver.find_element_by_id('id_username').send_keys("test name")
+        self.driver.find_element_by_id('id_email').send_keys("test@ls.fl")
+        self.driver.find_element_by_type('submit').click()
+        self.assertIn("http://localhost:8000/profil", self.driver.current_url)
+
+    def tearDown(self):
+        self.driver.quit
+
+if __name__ == '__main__':
+    unittest.main()
