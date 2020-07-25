@@ -10,7 +10,8 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
-
+import sys
+sys.path.append('/home/marcin/memeWebsite/WebProject')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'WebProject.settings')
 
 application = get_wsgi_application()
