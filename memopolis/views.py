@@ -39,7 +39,7 @@ class MemeListView(ListView):
         elif self.template_name == 'memopolis/unaccepted_memes.html':
             meme_list = Meme.objects.order_by("-date_posted").filter(accepted=False)
             
-        paginator = Paginator(meme_list, 2)
+        paginator = Paginator(meme_list, 20)
 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
