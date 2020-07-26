@@ -192,7 +192,7 @@ class YourMemesListView(ListView):
 
         context = {}
         
-        paginator = Paginator(memes, 2)
+        paginator = Paginator(memes, 20)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['page_obj'] = page_obj
