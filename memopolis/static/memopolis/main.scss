@@ -10,7 +10,9 @@ body {
   width: 100px !important;
   height: 100px !important;
 }
-
+.top a:hover, .memeTitle a:hover, .content-section a:hover {
+  color: rgb(117, 112, 112);
+}
 iframe {
   display: none;
 }
@@ -30,11 +32,13 @@ iframe {
 body a {
   text-decoration: none;
 }
-
+.your-memes .top {
+  width: 230px;
+}
 .top img {
-  width: 270px;
+  width: 198px;
   height: 200px;
-
+  margin-bottom: 15px;
 }
 
 .top {
@@ -93,6 +97,7 @@ hr {
   min-height: 500px;
   width: 320px;
   background-color: rgb(238, 238, 238);
+  margin-bottom: 40px;
 }
 
 .account-img {
@@ -429,7 +434,7 @@ button {
 
 a:hover {
   text-decoration: none;
-  color: #6db6eb;
+  color: white;
 }
 
 .content-section a {
@@ -535,9 +540,6 @@ a:hover {
     width: 280px;
   }
 
-  .top img {
-    width: 228px;
-  }
 
 }
 
@@ -550,10 +552,7 @@ a:hover {
     width: 260px;
   }
 
-  .top img {
-    width: 210px;
 
-  }
 }
 
 @media (max-width: 900px) {
@@ -565,10 +564,7 @@ a:hover {
     width: 250px;
   }
 
-  .top img {
-    width: 179px;
 
-  }
 }
 
 @media (max-width: 800px) {
