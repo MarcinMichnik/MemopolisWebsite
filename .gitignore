@@ -1,2 +1,9 @@
 db.sqlite3
 config.json
+WebProject/__pycache__/settings.cpython-38.pyc           
+WebProject/__pycache__/wsgi.cpython-38.pyc               
+db.sqlite3                                               
+memopolis/__pycache__/models.cpython-38.pyc              
+memopolis/__pycache__/urls.cpython-38.pyc                
+memopolis/migrations/__pycache__/0021_auto_20200704_1453.cpython-38.pyc                                           
+memopolis/migrations/__pycache__/0022_auto_20200704_1941.cpython-38.pyc
