@@ -66,11 +66,9 @@ class MemeListView(ListView):
                 meme.votes.up(user_id)
                 meme.num_vote_up+=1
         
-        
-        
         meme.save()
         
-        return HttpResponseRedirect("")
+        return redirect('/')
         
 class TopMemeListView(MemeListView):
     template_name = 'memopolis/top.html'
@@ -159,6 +157,7 @@ class MemeDetailView(DetailView):
             
             
             comment.save()
+
         return HttpResponseRedirect('')
     
 class MemeCreateView(CreateView):
