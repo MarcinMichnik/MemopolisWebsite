@@ -158,7 +158,7 @@ class MemeDetailView(DetailView):
             
             comment.save()
 
-        return HttpResponseRedirect('')
+        return HttpResponseRedirect(self.request.path_info)
     
 class MemeCreateView(CreateView):
     model = Meme
