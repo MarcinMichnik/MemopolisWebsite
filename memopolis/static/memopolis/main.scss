@@ -43,6 +43,7 @@ body a {
 
 .top {
   border-style: solid;
+  border-width: 8px;
   margin-bottom: 20px;
 }
 
@@ -69,10 +70,6 @@ body a {
   color: #ffffff;
 }
 
-.your-memes {
-  margin-top: 12px;
-}
-
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
 }
@@ -93,13 +90,15 @@ hr {
 .content-section {
   padding: 0px 20px;
   border: solid $primary-color;
-  border-radius: 3px;
+  border-width: 8px;
   min-height: 500px;
   width: 320px;
   background-color: rgb(238, 238, 238);
   margin-bottom: 40px;
 }
-
+.alert-info {
+  margin-top: 20px;
+}
 .account-img {
   height: 125px;
   width: 125px;
@@ -250,6 +249,7 @@ header {
 .meme {
   border-style: solid;
   border-color: $primary-color;
+  border-width: 8px;
   background-color: rgb(238, 238, 238);
   padding: 10px;
   margin-top: 10px;
@@ -392,7 +392,7 @@ header {
 }
 
 .bag {
-  width: 200px;
+  width: 230px;
   text-align: center;
   padding-left: 10px;
   font-size: 25px;
@@ -402,6 +402,7 @@ header {
 .user-app-wrap {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .form-group button {
@@ -584,9 +585,7 @@ a:hover {
     display: block;
   }
 
-  .chart {
-    margin-left: -65px;
-  }
+
 
   .content {
     display: flex !important;
@@ -711,10 +710,13 @@ a:hover {
   .container .row {
     margin-left: 15px;
   }
-
-
-
   .pagination * {
     font-size: 7px;
+  }
+}
+@media (max-width: 400px) {
+
+  .media-body p{
+    font-size: 13px;
   }
 }
