@@ -4,3 +4,4 @@ db.sqlite3
 WebProject/__pycache__/
 memopolis/__pycache__/
 memopolis/migrations/__pycache__/
+media/
