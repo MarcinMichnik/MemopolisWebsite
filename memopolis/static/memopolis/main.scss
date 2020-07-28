@@ -540,7 +540,9 @@ a:hover {
   .content-section {
     width: 280px;
   }
-
+  .top img {
+    width: 185px;
+  }
 
 }
 
@@ -553,7 +555,9 @@ a:hover {
     width: 260px;
   }
 
-
+  .top img {
+    width: 180px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -565,7 +569,9 @@ a:hover {
     width: 250px;
   }
 
-
+  .top img {
+    width: 170px;
+  }
 }
 
 @media (max-width: 800px) {
