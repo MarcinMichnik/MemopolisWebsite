@@ -64,16 +64,9 @@
 </div>
 
 <div class="comment-section">
-    {% if user.is_authenticated %}
     <div class="each-comment add-button">
         <button onclick="reveal()">+</button>
     </div>
-    {% else %}
-    <div class="no-comment">
-        <a href="{% url 'login' %}">Zaloguj się, aby komentować</a>
-    </div>
-
-    {% endif %}
     <div class="each-comment veil">
         <div class="author pad">
 
@@ -129,6 +122,8 @@
             </div>
 
             <div class="act">
+                <button class="comment">Odpowiedz</button>
+
             </div>
         </div>
     </div>
