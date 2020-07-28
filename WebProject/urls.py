@@ -36,6 +36,11 @@ urlpatterns = [
     path('', include('memopolis.urls')),
     #
     path('profil/', user_views.profile, name="profile"),
+    
+    #API
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/memopolis/', include('memopolis.api.urls')),
+    path('api/users/', include('users.api.urls')),
 ]
 
 if settings.DEBUG:
