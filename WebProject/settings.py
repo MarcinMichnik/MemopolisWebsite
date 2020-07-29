@@ -36,6 +36,7 @@ ALLOWED_HOSTS = config["ALLOWED_HOSTS"]
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'coverage',
     'vote',
     'users.apps.UsersConfig',
@@ -47,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
 ]
 
 MIDDLEWARE = [
@@ -150,3 +150,10 @@ EMAIL_HOST_USER = config.get('EMAIL_USER')
 
 EMAIL_HOST_PASSWORD = config.get('EMAIL_PASS')
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
