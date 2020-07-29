@@ -36,6 +36,7 @@ ALLOWED_HOSTS = config["ALLOWED_HOSTS"]
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'coverage',
     'vote',
     'users.apps.UsersConfig',
@@ -47,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
 ]
 
 MIDDLEWARE = [
