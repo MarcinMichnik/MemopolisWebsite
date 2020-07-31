@@ -7,12 +7,12 @@ const { Header, Footer, Sider, Content } = Layout;
 const CustomLayout = (props) => {
     return     <>
     <Layout>
-      <Header>Header</Header>
+      <Header>Memopolis</Header>
       <Layout>
         <Content>{props.children}</Content>
-        <Sider>Sider</Sider>
+        <Sider>Top</Sider>
       </Layout>
-      <Footer>Footer</Footer>
+      <Footer>Memopolis &copy;</Footer>
     </Layout>
   </>
 }

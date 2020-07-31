@@ -21,35 +21,26 @@ const Memes = (props) => {
           onChange: page => {
             console.log(page);
           },
-          pageSize: 3,
+          pageSize: 10,
         }}
         dataSource={props.data}
-        footer={
-          <div>
-            <b>ant design</b> footer part
-          </div>
-        }
         renderItem={item => (
           <List.Item
             key={item.title}
             actions={[
               <IconText icon={LikeOutlined} text={item.num_vote_up} key="list-vertical-like-o" />,
-              <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+              <IconText icon={MessageOutlined} text="Komentarze" key="list-vertical-message" />,
             ]}
-            extra={
+          >
+            <List.Item.Meta
+              title={<a href={item.href}>{item.title}</a>}
+
+            />
               <img
-                width={272}
+                width={400}
                 alt="logo"
                 src={item.image}
               />
-            }
-          >
-            <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
-              title={<a href={item.href}>{item.title}</a>}
-              description={item.description}
-            />
-            {item.content}
           </List.Item>
         )}
       />
