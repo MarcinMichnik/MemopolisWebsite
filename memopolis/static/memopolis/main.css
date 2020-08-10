@@ -110,10 +110,6 @@ hr {
   margin-bottom: 16px;
 }
 
-.account-heading {
-  font-size: 2.5rem;
-}
-
 .votes {
   padding-left: 4px;
   padding-right: 2px;
@@ -527,6 +523,10 @@ a:hover {
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
   display: block;
+}
+
+.media .media-body .account-heading {
+  font-size: 1.7rem;
 }
 
 @media (max-width: 1100px) {
