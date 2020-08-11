@@ -201,14 +201,15 @@ a {
 
 .upvotes {
   color: rgb(148, 236, 148);
-  font-weight: bolder;
-}
 
-.downvotes {
-  color: rgb(240, 138, 138);
-  font-weight: bolder;
 }
-
+.act a {
+  font-size:25px;
+}
+.widen {
+  font-weight:bolder;
+  font-size: 25px;
+}
 
 .memeImg {
   margin-bottom: 10px;
@@ -600,15 +601,11 @@ a:hover {
     padding-left: 0px;
   }
 
-  .actions * {
-    margin-left: 2px;
-    font-size: 15px;
-  }
+
 
   .actions button {
     padding-left: 3px;
     padding-right: 3px;
-
 
   }
 
