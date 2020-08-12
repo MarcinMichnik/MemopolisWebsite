@@ -39,9 +39,19 @@
                         {% csrf_token %}
                         {% if user.is_authenticated %}
                         <button type="submit" name="{{ meme.pk }} {{ user.id }} up"
-                            class="upvotes">{{ meme.num_vote_up }}</button>
+                            class="upvotes">
+                            <div class="widen">
+                                &#8593;
+                                {{ meme.num_vote_up }}
+                            </div>
+                        </button>
                         {% else %}
-                        <a class="upvotes">{{ meme.num_vote_up }}</a>
+                        <a class="upvotes">
+                            <div class="widen">
+                                &#8593;
+                                {{ meme.num_vote_up }}
+                            </div>
+                        </a>
                         {% endif %}
                     </form>
                 </div>

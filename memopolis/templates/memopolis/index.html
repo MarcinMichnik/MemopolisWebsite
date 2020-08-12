@@ -47,7 +47,12 @@
                         </button>
 
                         {% else %}
-                        <a class="upvotes">{{ meme.num_vote_up }}</a>
+                        <a class="upvotes">
+                            <div class="widen">
+                                &#8593;
+                                {{ meme.num_vote_up }}
+                            </div>
+                        </a>
                         {% endif %}
                     </form>
                 </div>
