@@ -82,6 +82,29 @@ class TopMemeListView(MemeListView):
             context = super().get_context_data(**kwargs)
         return context
     
+    def post(self, request):
+        
+        raw = list(request.POST)[1]
+
+        raw = raw.split(' ')
+        
+        object_pk, user_id, vote = raw[0], raw[1], raw[2]
+
+        
+        meme = Meme.objects.get(pk=object_pk)
+        
+        if vote == "up":
+            if meme.votes.exists(user_id):
+                meme.votes.delete(user_id)
+                meme.num_vote_up-=1
+            else:
+                meme.votes.up(user_id)
+                meme.num_vote_up+=1
+        
+        meme.save()
+        
+        return redirect('/top/')
+    
 class UnacceptedMemeListView(MemeListView):
     template_name = 'memopolis/unaccepted_memes.html'
     
@@ -90,7 +113,30 @@ class UnacceptedMemeListView(MemeListView):
         memes = Meme.objects.order_by("-date_posted").filter(accepted=False)
         context['memes']=memes
         
-        return context  
+        return context
+    
+    def post(self, request):
+        
+        raw = list(request.POST)[1]
+
+        raw = raw.split(' ')
+        
+        object_pk, user_id, vote = raw[0], raw[1], raw[2]
+
+        
+        meme = Meme.objects.get(pk=object_pk)
+        
+        if vote == "up":
+            if meme.votes.exists(user_id):
+                meme.votes.delete(user_id)
+                meme.num_vote_up-=1
+            else:
+                meme.votes.up(user_id)
+                meme.num_vote_up+=1
+        
+        meme.save()
+        
+        return redirect('/poczekalnia/')
     
 class MemeDetailView(DetailView):
     model = Meme
