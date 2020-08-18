@@ -49,8 +49,7 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     {% if user.is_authenticated %}
-                    <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme"
-                        class="upvotes">
+                    <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="upvotes">
                         <div class="widen">
                             &#8593;
                             {{ meme.num_vote_up }}
@@ -98,7 +97,7 @@
                 <div class="form-group">
                     <button class="btn btn-outlint-info" type="submit">Dodaj komentarz</button>
                 </div>
-               
+
             </form>
         </div>
     </div>
@@ -133,7 +132,25 @@
 
             <div class="act">
                 <!-- <button class="comment">Odpowiedz</button> -->
+                {% if user.id == meme.author.id %}
+                <button onclick="revealDeleteComment()" id="to-be-veiled" class="comment">Usuń</button>
+                <div id="veiled-delete-comment" class="veil">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="d-flex">
+                            <div>
+                                <p class="card-text">Na pewno usunąć?</p>
+                            </div>
+    
+                            <div>
+                                <button type="submit" name="{{ comment.pk }} {{ user.id }} del comment" class="comment">Potwierdź</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
+
+                {% endif %}
             </div>
         </div>
     </div>
@@ -142,4 +159,5 @@
 </div>
 
 <script type="text/javascript" src="{% static 'memopolis/reveal.js' %}"></script>
+<script type="text/javascript" src="{% static 'memopolis/revealDeleteComment.js' %}"></script>
 {% endblock content %}

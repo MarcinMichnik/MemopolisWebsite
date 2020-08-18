@@ -53,12 +53,12 @@ class MemeListView(ListView):
 
         raw = raw.split(' ')
         
-        object_pk, user_id, vote = raw[0], raw[1], raw[2]
+        object_pk, user_id, what_to_do = raw[0], raw[1], raw[2]
 
         
         meme = Meme.objects.get(pk=object_pk)
         
-        if vote == "up":
+        if what_to_do == "up":
             if meme.votes.exists(user_id):
                 meme.votes.delete(user_id)
                 meme.num_vote_up-=1
@@ -88,12 +88,12 @@ class TopMemeListView(MemeListView):
 
         raw = raw.split(' ')
         
-        object_pk, user_id, vote = raw[0], raw[1], raw[2]
+        object_pk, user_id, what_to_do = raw[0], raw[1], raw[2]
 
         
         meme = Meme.objects.get(pk=object_pk)
         
-        if vote == "up":
+        if what_to_do == "up":
             if meme.votes.exists(user_id):
                 meme.votes.delete(user_id)
                 meme.num_vote_up-=1
@@ -121,12 +121,12 @@ class UnacceptedMemeListView(MemeListView):
 
         raw = raw.split(' ')
         
-        object_pk, user_id, vote = raw[0], raw[1], raw[2]
+        object_pk, user_id, what_to_do = raw[0], raw[1], raw[2]
 
         
         meme = Meme.objects.get(pk=object_pk)
         
-        if vote == "up":
+        if what_to_do == "up":
             if meme.votes.exists(user_id):
                 meme.votes.delete(user_id)
                 meme.num_vote_up-=1
@@ -163,7 +163,8 @@ class MemeDetailView(DetailView):
         if list(raw)[1]!='content':
             raw = list(request.POST)[1]
             raw = raw.split(' ')
-            object_pk, user_id, vote, direction = raw[0], raw[1], raw[2], raw[3]
+            print(raw)
+            object_pk, user_id, what_to_do, direction = raw[0], raw[1], raw[2], raw[3]
 
         else:
             raw = request.POST['content']
@@ -172,7 +173,7 @@ class MemeDetailView(DetailView):
         if direction == 'meme':
             meme = Meme.objects.get(pk=object_pk)
             
-            if vote == 'up':
+            if what_to_do == 'up':
                 if meme.votes.exists(user_id):
                     meme.votes.delete(user_id)
                     meme.num_vote_up-=1
@@ -180,9 +181,9 @@ class MemeDetailView(DetailView):
                     meme.votes.up(user_id)
                     meme.num_vote_up+=1
             meme.save()
-        elif direction == 'comment':
+        elif direction == 'comment' and what_to_do != 'del':
             comment = Comment.objects.get(pk=object_pk)
-            if vote == 'up':
+            if what_to_do == 'up':
                 if comment.votes.exists(user_id):
                     comment.votes.delete(user_id)
                     comment.num_vote_up-=1
@@ -191,6 +192,10 @@ class MemeDetailView(DetailView):
                     comment.num_vote_up+=1
             comment.save()
             
+        elif direction == 'comment' and what_to_do == 'del':
+            comment = Comment.objects.get(pk=object_pk)
+            comment.delete()
+        
         elif direction == 'create_comment':
             comment = Comment()
 
