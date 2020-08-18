@@ -10,16 +10,17 @@ body {
   width: 100px !important;
   height: 100px !important;
 }
-.top a:hover, .memeTitle a:hover, .content-section a:hover {
+
+.top a:hover,
+.memeTitle a:hover,
+.content-section a:hover {
   color: rgb(117, 112, 112);
 }
+
 iframe {
   display: none;
 }
 
-.veil {
-  display: none;
-}
 
 .reveal {
   display: block;
@@ -32,9 +33,11 @@ iframe {
 body a {
   text-decoration: none;
 }
+
 .your-memes .top {
   width: 230px;
 }
+
 .top img {
   width: 198px;
   height: 200px;
@@ -86,6 +89,7 @@ hr {
 .submenu {
   background-color: $primary-color;
 }
+
 .content-section {
   padding: 0px 20px;
   border: solid $primary-color;
@@ -95,9 +99,11 @@ hr {
   background-color: rgb(238, 238, 238);
   margin-bottom: 40px;
 }
+
 .alert-info {
   margin-top: 20px;
 }
+
 .account-img {
   height: 125px;
   width: 125px;
@@ -161,9 +167,7 @@ hr {
   color: whitesmoke;
 }
 
-.actions * {
-  display: flex;
-}
+
 
 .add-button {
   font-size: 50px;
@@ -199,15 +203,23 @@ a {
   padding-top: 15px;
 }
 
+.veil {
+  display: none;
+}
+
+
+
 .upvotes {
   color: rgb(148, 236, 148);
 
 }
+
 .act a {
-  font-size:25px;
+  font-size: 25px;
 }
+
 .widen {
-  font-weight:bolder;
+  font-weight: bolder;
   font-size: 25px;
 }
 
@@ -216,9 +228,11 @@ a {
   margin-top: 10px;
   text-align: center;
 }
+
 .text-shadow {
   text-shadow: 2px 2px black;
 }
+
 .memeImg img {
   max-width: 100%;
   max-height: 100%;
@@ -327,9 +341,7 @@ header {
   width: 100%;
 }
 
-.actions * {
-  padding-left: 10px;
-}
+
 
 .meme .memeTitle {
   margin-top: 5px;
@@ -530,9 +542,11 @@ a:hover {
 .show {
   display: block;
 }
-.media .media-body .account-heading{
+
+.media .media-body .account-heading {
   font-size: 1.7rem;
 }
+
 @media (max-width: 1100px) {
   .pagination * {
     font-size: 16px;
@@ -541,6 +555,7 @@ a:hover {
   .content-section {
     width: 280px;
   }
+
   .top img {
     width: 185px;
   }
@@ -713,13 +728,15 @@ a:hover {
   .container .row {
     margin-left: 15px;
   }
+
   .pagination * {
     font-size: 7px;
   }
 }
+
 @media (max-width: 400px) {
 
-  .media-body p{
+  .media-body p {
     font-size: 13px;
   }
 }

@@ -9,15 +9,13 @@ body {
   height: 100px !important;
 }
 
-.top a:hover, .memeTitle a:hover, .content-section a:hover {
+.top a:hover,
+.memeTitle a:hover,
+.content-section a:hover {
   color: #757070;
 }
 
 iframe {
-  display: none;
-}
-
-.veil {
   display: none;
 }
 
@@ -164,10 +162,6 @@ hr {
   color: whitesmoke;
 }
 
-.actions * {
-  display: flex;
-}
-
 .add-button {
   font-size: 50px;
   text-align: center;
@@ -200,6 +194,10 @@ a {
 
 .media {
   padding-top: 15px;
+}
+
+.veil {
+  display: none;
 }
 
 .upvotes {
@@ -328,10 +326,6 @@ header {
 
 .text textarea {
   width: 100%;
-}
-
-.actions * {
-  padding-left: 10px;
 }
 
 .meme .memeTitle {
