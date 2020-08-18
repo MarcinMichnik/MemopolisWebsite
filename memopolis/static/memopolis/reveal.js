@@ -22,7 +22,7 @@ if (plusButton.classList.contains('reveal')) {
 
 function reveal(){
     plusButton.classList.add('veil');
-    createComment.classList.add('reveal');
+    createComment.classList.remove('veil');
 
     translate();
 }
