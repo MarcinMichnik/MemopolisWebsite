@@ -132,7 +132,7 @@
 
             <div class="act">
                 <!-- <button class="comment">Odpowiedz</button> -->
-                {% if user.id == meme.author.id %}
+                {% if user.id == comment.author.id %}
                 <button onclick="revealDeleteComment()" id="to-be-veiled" class="comment">Usuń</button>
                 <div id="veiled-delete-comment" class="veil">
                     <form action="" method="post">
