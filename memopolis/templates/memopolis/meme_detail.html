@@ -133,8 +133,8 @@
             <div class="act">
                 <!-- <button class="comment">Odpowiedz</button> -->
                 {% if user.id == comment.author.id %}
-                <button onclick="revealDeleteComment()" id="to-be-veiled" class="comment">Usuń</button>
-                <div id="veiled-delete-comment" class="veil">
+                <button onclick="revealDeleteComment( {{ forloop.counter }} )" class="comment to-be-veiled">Usuń</button>
+                <div class="veil veiled-delete-comment">
                     <form action="" method="post">
                         {% csrf_token %}
                         <div class="d-flex">
