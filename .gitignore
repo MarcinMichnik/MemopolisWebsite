@@ -3,11 +3,9 @@ config.json
 db.sqlite3
 WebProject/__pycache__/
 media/
-
 memopolis/__pycache__/
 memopolis/api/__pycache__/
 memopolis/migrations/__pycache__/
-
 users/__pycache__/
 users/api/__pycache__/
 users/migrations/__pycache__/
