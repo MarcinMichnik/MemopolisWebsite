@@ -14,22 +14,58 @@ This site features a system which allows to vote and unvote for a specific meme.
 
 ![alt text](https://i.imgur.com/8UKKiuv.png?1 "Django REST framework")
 
-The APIs for each model are available under:
-
+### API documentation:
+#### Resources:
+##### Meme objects:
+###### GET
  https://www.memopolis.pl/api/memopolis/meme
-
+###### Description
+ Memes are displayed on the main page for example.
+###### Properties
+        {
+           "author": string,
+           "title": string,
+           "num_vote_up": integer,
+           "tags": list of integers,
+           "image": string,
+           "date_posted": string,
+           "accepted": boolean
+        }
+        
+        
+        
+##### Comment objects:
+###### GET
  https://www.memopolis.pl/api/memopolis/comment
-
+###### Description
+ Comments are displayed on individual meme pages (detail views).
+###### Properties
+        {
+           "author": integer,
+           "content": string,
+           "num_vote_up": integer,
+           "date_posted": string,
+           "belongs_to": integer
+        }
+##### Tag objects:
+###### GET
  https://www.memopolis.pl/api/memopolis/tag
-
+###### Description
+ Tags are bound to memes and describe them.
+###### Properties
+        {
+        "name": string
+        }
+##### Profile objects:
+###### GET
  https://www.memopolis.pl/api/users/profile
+###### Description
+ A profile is a combination of a user and an image, which is used as an avatar.
+###### Properties
+        {
+        "user": integer,
+        "image": string 
+        }
 
-## Amazon Web Services
 
-![alt text](https://i.imgur.com/rntWbuW.png "AWS")
 
-The images on Memopolis are hosted via AWS S3 bucket service.
-
-## Cloud Server Hosting
-
-![alt text](https://i.imgur.com/2uKaGOq.png?1 "Linode")
