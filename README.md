@@ -10,18 +10,18 @@ This site features a system which allows to vote and unvote for a specific meme.
 
 ![alt text](https://i.imgur.com/Yqtc0xA.png?1 "User upvotes")
 
-## Django REST framework
+# Django REST framework
 
 ![alt text](https://i.imgur.com/8UKKiuv.png?1 "Django REST framework")
 
-### API documentation:
-#### Resources:
-##### Meme objects:
-###### GET
+# API documentation:
+## Resources:
+### Meme objects:
+#### GET
  https://www.memopolis.pl/api/memopolis/meme
-###### Description
+#### Description
  Memes are displayed on the main page for example.
-###### Properties
+#### Properties
         {
            "author": string,
            "title": string,
@@ -34,12 +34,12 @@ This site features a system which allows to vote and unvote for a specific meme.
         
         
         
-##### Comment objects:
-###### GET
+### Comment objects:
+#### GET
  https://www.memopolis.pl/api/memopolis/comment
-###### Description
+#### Description
  Comments are displayed on individual meme pages (detail views).
-###### Properties
+#### Properties
         {
            "author": integer,
            "content": string,
@@ -47,21 +47,21 @@ This site features a system which allows to vote and unvote for a specific meme.
            "date_posted": string,
            "belongs_to": integer
         }
-##### Tag objects:
-###### GET
+### Tag objects:
+#### GET
  https://www.memopolis.pl/api/memopolis/tag
-###### Description
+#### Description
  Tags are bound to memes and describe them.
-###### Properties
+#### Properties
         {
         "name": string
         }
-##### Profile objects:
-###### GET
+### Profile objects:
+#### GET
  https://www.memopolis.pl/api/users/profile
-###### Description
+#### Description
  A profile is a combination of a user and an image, which is used as an avatar.
-###### Properties
+#### Properties
         {
         "user": integer,
         "image": string 
