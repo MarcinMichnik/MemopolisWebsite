@@ -11,9 +11,9 @@ This site features a system which allows to vote and unvote for a specific meme.
 ![alt text](https://i.imgur.com/Yqtc0xA.png?1 "User upvotes")
 
 # Django REST framework
+![alt text](https://i.imgur.com/8UKKiuv.png?1 "Django REST framework")
 
 Memopolis offers an API, which is built on Django REST framework.
-![alt text](https://i.imgur.com/8UKKiuv.png?1 "Django REST framework")
 
 # API documentation:
 ## Resources:
