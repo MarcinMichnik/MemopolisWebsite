@@ -19,9 +19,9 @@ This site features a system which allows to vote and unvote for a specific meme.
 ### Meme objects:
 #### GET
  https://www.memopolis.pl/api/memopolis/meme
-#### Description
+#### Description:
  Memes are displayed on the main page for example.
-#### Properties
+#### Properties:
         {
            "author": string,
            "title": string,
@@ -37,9 +37,9 @@ This site features a system which allows to vote and unvote for a specific meme.
 ### Comment objects:
 #### GET
  https://www.memopolis.pl/api/memopolis/comment
-#### Description
+#### Description:
  Comments are displayed on individual meme pages (detail views).
-#### Properties
+#### Properties:
         {
            "author": integer,
            "content": string,
@@ -50,22 +50,19 @@ This site features a system which allows to vote and unvote for a specific meme.
 ### Tag objects:
 #### GET
  https://www.memopolis.pl/api/memopolis/tag
-#### Description
+#### Description:
  Tags are bound to memes and describe them.
-#### Properties
+#### Properties:
         {
         "name": string
         }
 ### Profile objects:
 #### GET
  https://www.memopolis.pl/api/users/profile
-#### Description
+#### Description:
  A profile is a combination of a user and an image, which is used as an avatar.
-#### Properties
+#### Properties:
         {
         "user": integer,
         "image": string 
         }
-
-
-
