@@ -23,6 +23,7 @@ This site features a system which allows to vote and unvote for a specific meme.
  Memes are displayed on the main page for example.
 #### Properties:
         {
+           "id": integer,
            "author": string,
            "title": string,
            "num_vote_up": integer,
@@ -41,6 +42,7 @@ This site features a system which allows to vote and unvote for a specific meme.
  Comments are displayed on individual meme pages (detail views).
 #### Properties:
         {
+           "id": integer,
            "author": integer,
            "content": string,
            "num_vote_up": integer,
@@ -54,6 +56,7 @@ This site features a system which allows to vote and unvote for a specific meme.
  Tags are bound to memes and describe them.
 #### Properties:
         {
+        "id": integer,
         "name": string
         }
 ### Profile objects:
@@ -63,6 +66,7 @@ This site features a system which allows to vote and unvote for a specific meme.
  A profile is a combination of a user and an image, which is used as an avatar.
 #### Properties:
         {
+        "id": integer,
         "user": integer,
         "image": string 
         }
