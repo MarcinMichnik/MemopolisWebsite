@@ -56,6 +56,19 @@ Memopolis offers an API, which is built on Django REST framework.
         "name": string
         }
 ---
+### User objects:
+#### GET https://www.memopolis.pl/api/users/user
+#### Description:
+ Users are accounts created by website visitors. There is a difference between user objects and profile objects.
+#### Properties:
+        {
+        "id": integer,
+        "username": string,
+        "last_login": string,
+        "date_joined": string,
+        "is_superuser": boolean
+        }
+---
 ### Profile objects:
 #### GET https://www.memopolis.pl/api/users/profile
 #### Description:
