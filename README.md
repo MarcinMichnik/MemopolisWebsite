@@ -32,9 +32,7 @@ Memopolis offers an API, which is built on Django REST framework.
            "date_posted": string,
            "accepted": boolean
         }
-        
-        
-        
+---
 ### Comment objects:
 #### GET https://www.memopolis.pl/api/memopolis/comment
 #### Description:
@@ -48,6 +46,7 @@ Memopolis offers an API, which is built on Django REST framework.
            "date_posted": string,
            "belongs_to": integer
         }
+---
 ### Tag objects:
 #### GET https://www.memopolis.pl/api/memopolis/tag
 #### Description:
@@ -57,6 +56,7 @@ Memopolis offers an API, which is built on Django REST framework.
         "id": integer,
         "name": string
         }
+---
 ### Profile objects:
 #### GET https://www.memopolis.pl/api/users/profile
 #### Description:
