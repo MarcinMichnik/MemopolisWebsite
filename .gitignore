@@ -4,14 +4,8 @@ db.sqlite3
 db.json
 db_backup.json
 static/
-WebProject/db_backup.json
 config.json.save
 config.json.save.1
-WebProject/__pycache__/
 media/
-memopolis/__pycache__/
-memopolis/api/__pycache__/
-memopolis/migrations/__pycache__/
-users/__pycache__/
-users/api/__pycache__/
-users/migrations/__pycache__/
+__pycache__/
+
