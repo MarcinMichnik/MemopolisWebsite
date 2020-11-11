@@ -1,4 +1,4 @@
-# Memopolis
+# **Memopolis**
 
 A fullstack django project, with the aim to create, browse, comment, update and delete memes.
 
@@ -12,15 +12,16 @@ This site features a system which allows to vote and unvote for a specific meme.
 
 # Django REST framework
 
+Memopolis offers an API, which is built on Django REST framework.
 ![alt text](https://i.imgur.com/8UKKiuv.png?1 "Django REST framework")
 
 # API documentation:
 ## Resources:
 ### Meme objects:
-* GET https://www.memopolis.pl/api/memopolis/meme
-* Description:
+#### GET https://www.memopolis.pl/api/memopolis/meme
+#### Description:
  Memes are displayed on the main page for example.
-* Properties:
+#### Properties:
         {
            "id": integer,
            "author": string,
@@ -35,10 +36,10 @@ This site features a system which allows to vote and unvote for a specific meme.
         
         
 ### Comment objects:
-* GET https://www.memopolis.pl/api/memopolis/comment
-* Description:
+#### GET https://www.memopolis.pl/api/memopolis/comment
+#### Description:
  Comments are displayed on individual meme pages (detail views).
-* Properties:
+#### Properties:
         {
            "id": integer,
            "author": integer,
@@ -48,19 +49,19 @@ This site features a system which allows to vote and unvote for a specific meme.
            "belongs_to": integer
         }
 ### Tag objects:
-* GET https://www.memopolis.pl/api/memopolis/tag
-* Description:
+#### GET https://www.memopolis.pl/api/memopolis/tag
+#### Description:
  Tags are bound to memes and describe them.
-* Properties:
+#### Properties:
         {
         "id": integer,
         "name": string
         }
 ### Profile objects:
-* GET https://www.memopolis.pl/api/users/profile
-* Description:
+#### GET https://www.memopolis.pl/api/users/profile
+#### Description:
  A profile is a combination of a user and an image, which is used as an avatar.
-* Properties:
+#### Properties:
         {
         "id": integer,
         "user": integer,
