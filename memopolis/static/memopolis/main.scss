@@ -1,4 +1,5 @@
 $primary-color: #185a8a;
+$secondary-color: rgb(228, 228, 228);
 
 body {
   background: whitesmoke;
@@ -28,6 +29,10 @@ iframe {
 
 .navbar {
   justify-content: initial;
+}
+
+main .navbar {
+  padding-left: 25px;
 }
 
 body a {
@@ -82,7 +87,7 @@ hr {
 }
 
 .submenu * {
-  margin-right: 10px;
+  margin-right: 15px;
   color: #cbd5db;
 }
 
@@ -111,7 +116,9 @@ hr {
   margin-bottom: 16px;
 }
 
-
+.margin-top-10 {
+  margin-top: 10px;
+}
 
 .votes {
   padding-left: 4px;
@@ -211,16 +218,29 @@ a {
 
 .upvotes {
   color: rgb(148, 236, 148);
+}
 
+.upvotes-inactive {
+  color: white;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.meme .act {
+  padding-top: 4px;
 }
 
 .act a {
   font-size: 25px;
 }
 
+.closer {
+  margin-left: -5px;
+}
+
 .widen {
   font-weight: bolder;
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .memeImg {
@@ -369,8 +389,7 @@ header {
 
 .navbar-brand {
   font-size: 30px;
-  padding: 10px;
-  color: rgb(228, 228, 228);
+  color: $secondary-color;
   text-decoration: none;
 }
 
@@ -385,7 +404,7 @@ header {
 .nav-item {
   font-size: 20px;
   padding: 10px;
-  color: rgb(228, 228, 228);
+  color: $secondary-color;
   text-decoration: none;
 }
 
@@ -403,11 +422,16 @@ header {
 }
 
 .bag {
-  width: 230px;
+  width: 250px;
   text-align: center;
   padding-left: 10px;
   font-size: 25px;
 
+}
+
+.prev a, .forth a {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .user-app-wrap {
@@ -417,10 +441,9 @@ header {
 }
 
 .form-group button {
-  color: #185a8a;
+  color: white;
   border-style: solid;
-  border-color: $primary-color;
-
+  background-color: $primary-color;
   margin-top: 5px;
   margin-left: 2px;
   padding: 10px;

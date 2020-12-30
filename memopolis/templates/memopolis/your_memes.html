@@ -4,7 +4,7 @@
 <div id="content">
     <div class="bag">
         <div class="your-memes">
-            <a>Twoje memy</a>
+            <div class="center margin-top2"><h1>Twoje memy</h1></div>
             {% for meme in page_obj %}
             <div class="top">
                 <a href="{% url 'meme-detail' meme.id %}">{{ meme }}</a>
@@ -20,31 +20,31 @@
     <div class="step-links">
         {% if page_obj.has_previous %}
         <div class="prev">
-            <a href="?page=1">&laquo; Pierwsza</a>
-            <a href="?page={{ page_obj.previous_page_number }}">Poprzednia</a>
+            <button class="btn btn-outline-secondary"><a href="?page=1" class="font-weight-bold">&laquo; Pierwsza</a></button>
+            <button class="btn btn-outline-secondary"><a href="?page={{ page_obj.previous_page_number }}" class="font-weight-bold">Poprzednia</a></button>
         </div>
         {% endif %}
         {% if not page_obj.has_previous %}
         <div class="prev">
-            <a>&laquo; Pierwsza</a>
-            <a>Poprzednia</a>
+            <button class="btn btn-outline-secondary" disabled><a class="font-weight-bold">&laquo; Pierwsza</a></button>
+            <button class="btn btn-outline-secondary" disabled><a class="font-weight-bold">Poprzednia</a></button>
         </div>
         {% endif %}
 
         <div class="current">
-            Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+            <button class="btn btn-outline-secondary"><a href="#" class="font-weight-bold">Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.</a></button>
         </div>
 
         {% if page_obj.has_next %}
         <div class="forth">
-            <a href="?page={{ page_obj.next_page_number }}">Następna</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Ostatnia &raquo;</a>
+            <button class="btn btn-outline-secondary"><a href="?page={{ page_obj.next_page_number }}" class="font-weight-bold">Następna</a></button>
+            <button class="btn btn-outline-secondary"><a href="?page={{ page_obj.paginator.num_pages }}" class="font-weight-bold">Ostatnia &raquo;</a></button>
         </div>
         {% endif %}
         {% if not page_obj.has_next %}
         <div class="forth">
-            <a>Następna</a>
-            <a>Ostatnia &raquo;</a>
+            <button class="btn btn-outline-secondary" disabled><a class="font-weight-bold">Następna</a></button>
+            <button class="btn btn-outline-secondary" disabled><a class="font-weight-bold">Ostatnia &raquo;</a></button>
         </div>
         {% endif %}
     </div>

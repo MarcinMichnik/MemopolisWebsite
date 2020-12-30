@@ -7,10 +7,10 @@
 <hr>
 <div class="navbar container submenu">
     <div>
-        <a href="{% url 'meme-edit' meme.pk %}">Edytuj mem</a>
+        <a href="{% url 'meme-edit' meme.pk %}" class="font-weight-bold">Edytuj mem</a>
     </div>
     <div>
-        <a href="{% url 'meme-delete' meme.pk %}">Usuń mem</a>
+        <a href="{% url 'meme-delete' meme.pk %}" class="font-weight-bold">Usuń mem</a>
     </div>
 </div>
 <hr>
@@ -51,17 +51,17 @@
                     {% if user.is_authenticated %}
                     <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="upvotes">
                         <div class="widen">
-                            &#8593;
-                            {{ meme.num_vote_up }}
+                            <a>&#8593;</a>
+                            <a class="closer">{{ meme.num_vote_up }}</a>
                         </div>
                     </button>
                     {% else %}
-                    <a class="upvotes">
+                    <div class="upvotes-inactive">
                         <div class="widen">
-                            &#8593;
-                            {{ meme.num_vote_up }}
+                            <a>&#8593;</a>
+                            <a class="closer">{{ meme.num_vote_up }}</a>
                         </div>
-                    </a>
+                    </div>
                     {% endif %}
                 </form>
             </div>
