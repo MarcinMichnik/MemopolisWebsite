@@ -8,4 +8,5 @@ config.json.save
 config.json.save.1
 media/
 __pycache__/
-
+.coverage
+htmlcov/
