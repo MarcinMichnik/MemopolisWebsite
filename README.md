@@ -2,7 +2,7 @@
 
 A fullstack django project, with the aim to create, browse, comment, update and delete memes.
 
-The project is hosted under https://www.memopolis.pl/.
+The project is hosted under https://www.memopolis.pl/. (Currently unhosted)
 
 ## Upvote System
 
