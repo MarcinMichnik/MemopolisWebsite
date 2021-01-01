@@ -1,10 +1,33 @@
 $primary-color: #185a8a;
+$highlight-primary-color: #007bff;
 $secondary-color: rgb(228, 228, 228);
+$green: MediumSeaGreen;
+$red: Tomato;
 
 body {
   background: whitesmoke;
   color: #333333;
   font-family: 'Segoe UI', sans-serif;
+}
+
+.background-primary {
+  background-color: $primary-color;
+}
+
+.background-highlight {
+  background-color: $highlight-primary-color;
+}
+
+.color-green {
+  color: $green;
+}
+
+.color-red {
+  color: $red;
+}
+
+.color-white {
+  color: white;
 }
 
 .account-img {
@@ -214,7 +237,10 @@ a {
   display: none;
 }
 
-
+button.inactive:hover {
+  color:white;
+  cursor: auto;
+}
 
 .upvotes {
   color: rgb(148, 236, 148);

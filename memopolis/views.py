@@ -25,7 +25,6 @@ class MemeListView(ListView):
             
             context['tops']=tops
 
-
         return context
     
     def get(self, request):
@@ -58,14 +57,31 @@ class MemeListView(ListView):
 
         meme = Meme.objects.get(pk=object_pk)
         
-        if what_to_do == "up":
-            if meme.votes.exists(user_id):
+        if what_to_do == 'up':
+            if meme.votes.exists(user_id, action=0):
                 meme.votes.delete(user_id)
                 meme.num_vote_up-=1
+            elif meme.votes.exists(user_id, action=1):
+                meme.votes.delete(user_id)
+                meme.num_vote_down-=1
+                meme.votes.up(user_id)
+                meme.num_vote_up+=1
             else:
                 meme.votes.up(user_id)
                 meme.num_vote_up+=1
-        
+                
+        elif what_to_do == 'down':
+            if meme.votes.exists(user_id, action=0):
+                meme.votes.delete(user_id)
+                meme.num_vote_up-=1
+                meme.votes.down(user_id)
+                meme.num_vote_down+=1
+            elif meme.votes.exists(user_id, action=1):
+                meme.votes.delete(user_id)
+                meme.num_vote_down-=1
+            else:
+                meme.votes.down(user_id)
+                meme.num_vote_down+=1
         meme.save()
         
         return redirect('/')
@@ -93,14 +109,31 @@ class TopMemeListView(MemeListView):
         
         meme = Meme.objects.get(pk=object_pk)
         
-        if what_to_do == "up":
-            if meme.votes.exists(user_id):
+        if what_to_do == 'up':
+            if meme.votes.exists(user_id, action=0):
                 meme.votes.delete(user_id)
                 meme.num_vote_up-=1
+            elif meme.votes.exists(user_id, action=1):
+                meme.votes.delete(user_id)
+                meme.num_vote_down-=1
+                meme.votes.up(user_id)
+                meme.num_vote_up+=1
             else:
                 meme.votes.up(user_id)
                 meme.num_vote_up+=1
-        
+                
+        elif what_to_do == 'down':
+            if meme.votes.exists(user_id, action=0):
+                meme.votes.delete(user_id)
+                meme.num_vote_up-=1
+                meme.votes.down(user_id)
+                meme.num_vote_down+=1
+            elif meme.votes.exists(user_id, action=1):
+                meme.votes.delete(user_id)
+                meme.num_vote_down-=1
+            else:
+                meme.votes.down(user_id)
+                meme.num_vote_down+=1
         meme.save()
         
         return redirect('/top/')
@@ -125,15 +158,33 @@ class UnacceptedMemeListView(MemeListView):
 
         
         meme = Meme.objects.get(pk=object_pk)
-        
-        if what_to_do == "up":
-            if meme.votes.exists(user_id):
+
+            
+        if what_to_do == 'up':
+            if meme.votes.exists(user_id, action=0):
                 meme.votes.delete(user_id)
                 meme.num_vote_up-=1
+            elif meme.votes.exists(user_id, action=1):
+                meme.votes.delete(user_id)
+                meme.num_vote_down-=1
+                meme.votes.up(user_id)
+                meme.num_vote_up+=1
             else:
                 meme.votes.up(user_id)
                 meme.num_vote_up+=1
-        
+                
+        elif what_to_do == 'down':
+            if meme.votes.exists(user_id, action=0):
+                meme.votes.delete(user_id)
+                meme.num_vote_up-=1
+                meme.votes.down(user_id)
+                meme.num_vote_down+=1
+            elif meme.votes.exists(user_id, action=1):
+                meme.votes.delete(user_id)
+                meme.num_vote_down-=1
+            else:
+                meme.votes.down(user_id)
+                meme.num_vote_down+=1
         meme.save()
         
         return redirect('/poczekalnia/')
@@ -149,10 +200,11 @@ class MemeDetailView(DetailView):
         
         form = CommentRegisterForm()
         context['form'] = form
-
-        return context
-
         
+        context['up'] = meme.votes.exists(self.request.user.id, action=0)
+        context['down'] = meme.votes.exists(self.request.user.id, action=1)
+        
+        return context
 
     
     def post(self, request, *args, **kwargs):
@@ -174,13 +226,32 @@ class MemeDetailView(DetailView):
             meme = Meme.objects.get(pk=object_pk)
             
             if what_to_do == 'up':
-                if meme.votes.exists(user_id):
+                if meme.votes.exists(user_id, action=0):
                     meme.votes.delete(user_id)
                     meme.num_vote_up-=1
+                elif meme.votes.exists(user_id, action=1):
+                    meme.votes.delete(user_id)
+                    meme.num_vote_down-=1
+                    meme.votes.up(user_id)
+                    meme.num_vote_up+=1
                 else:
                     meme.votes.up(user_id)
                     meme.num_vote_up+=1
+                    
+            elif what_to_do == 'down':
+                if meme.votes.exists(user_id, action=0):
+                    meme.votes.delete(user_id)
+                    meme.num_vote_up-=1
+                    meme.votes.down(user_id)
+                    meme.num_vote_down+=1
+                elif meme.votes.exists(user_id, action=1):
+                    meme.votes.delete(user_id)
+                    meme.num_vote_down-=1
+                else:
+                    meme.votes.down(user_id)
+                    meme.num_vote_down+=1
             meme.save()
+            
         elif direction == 'comment' and what_to_do != 'del':
             comment = Comment.objects.get(pk=object_pk)
             if what_to_do == 'up':

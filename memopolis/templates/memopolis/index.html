@@ -37,27 +37,57 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         {% if user.is_authenticated %}
-
-                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="upvotes">
-                            <div class="widen">
-                                <a>&#8593;</a>
-                                <a class="closer">{{ meme.num_vote_up }}</a>
-                            </div>
-
-                        </button>
+                        <div class="d-flex">
+                            <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="background-primary btn-outline-primary">
+                                <div class="widen d-flex">
+                                    {% if false %}
+                                        <div class="color-green"><a>&#8593;</a></div>
+                                        <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
+                                    {% else %}
+                                        <div class="color-white"><a>&#8593;</a></div>
+                                        <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
+                                    {% endif %}
+                                </div>
+                            </button>
+                            <button type="button" class="btn background-primary color-white inactive" disabled>
+                                <div><a>|</a></div>
+                            </button>
+                            <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme" class="background-primary btn-outline-primary">
+                                <div class="widen d-flex">
+                                    {% if false %}
+                                        <div class="color-red"><a>&#8595;</a></div>
+                                        <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
+                                    {% else %}
+                                        <div class="color-white"><a>&#8595;</a></div>
+                                        <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
+                                    {% endif %}
+                                </div>
+                            </button>
+                        </div>
 
                         {% else %}
-                        <div class="upvotes-inactive">
-                            <div class="widen">
-                                <a>&#8593;</a>
-                                <a class="closer">{{ meme.num_vote_up }}</a>
-                            </div>
+                        <div class="d-flex">
+                            <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="background-primary">
+                                <div class="widen d-flex">
+                                    <div class="color-white"><a>&#8593;</a></div>
+                                    <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
+                                </div>
+                            </button>
+                            <button type="button" class="btn background-primary color-white inactive" disabled>
+                                <div><a>|</a></div>
+                            </button>
+                            <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme" class="background-primary">
+                                <div class="widen d-flex">
+                                    <div class="color-white"><a>&#8595;</a></div>
+                                    <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
+                                </div>
+                            </button>
                         </div>
                         {% endif %}
                     </form>
                 </div>
                 <div class="act">
-                    <a href="{% url 'meme-detail' meme.id %}" class="comment">Skomentuj</a>
+                    <a href="{% url 'meme-detail' meme.id %}" class="comment btn-outline-primary">Skomentuj</a>
                 </div>
             </div>
         </div>
@@ -84,8 +114,8 @@
     <div class="step-links">
         {% if page_obj.has_previous %}
         <div class="prev">
-            <button class="btn btn-outline-secondary"><a href="?page=1" class="font-weight-bold">&laquo; Pierwsza</a></button>
-            <button class="btn btn-outline-secondary"><a href="?page={{ page_obj.previous_page_number }}" class="font-weight-bold">Poprzednia</a></button>
+            <button class="btn btn-outline-primary"><a href="?page=1" class="font-weight-bold">&laquo; Pierwsza</a></button>
+            <button class="btn btn-outline-primary"><a href="?page={{ page_obj.previous_page_number }}" class="font-weight-bold">Poprzednia</a></button>
         </div>
         {% endif %}
         {% if not page_obj.has_previous %}
@@ -101,8 +131,8 @@
 
         {% if page_obj.has_next %}
         <div class="forth">
-            <button class="btn btn-outline-secondary"><a href="?page={{ page_obj.next_page_number }}" class="font-weight-bold">Następna</a></button>
-            <button class="btn btn-outline-secondary"><a href="?page={{ page_obj.paginator.num_pages }}" class="font-weight-bold">Ostatnia &raquo;</a></button>
+            <button class="btn btn-outline-primary"><a href="?page={{ page_obj.next_page_number }}" class="font-weight-bold">Następna</a></button>
+            <button class="btn btn-outline-primary"><a href="?page={{ page_obj.paginator.num_pages }}" class="font-weight-bold">Ostatnia &raquo;</a></button>
         </div>
         {% endif %}
         {% if not page_obj.has_next %}

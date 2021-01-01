@@ -49,18 +49,51 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     {% if user.is_authenticated %}
-                    <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="upvotes">
-                        <div class="widen">
-                            <a>&#8593;</a>
-                            <a class="closer">{{ meme.num_vote_up }}</a>
-                        </div>
-                    </button>
+                    <div class="d-flex">
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="background-primary btn-outline-primary">
+                            <div class="widen d-flex">
+                                {% if up %}
+                                    <div class="color-green"><a>&#8593;</a></div>
+                                    <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
+                                {% else %}
+                                    <div class="color-white"><a>&#8593;</a></div>
+                                    <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
+                                {% endif %}
+                            </div>
+                        </button>
+                        <button type="button" class="btn background-primary color-white inactive" disabled>
+                            <div><a>|</a></div>
+                        </button>
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme" class="background-primary btn-outline-primary">
+                            <div class="widen d-flex">
+                                {% if down %}
+                                    <div class="color-red"><a>&#8595;</a></div>
+                                    <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
+                                {% else %}
+                                    <div class="color-white"><a>&#8595;</a></div>
+                                    <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
+                                {% endif %}
+                            </div>
+                        </button>
+                    </div>
+
                     {% else %}
-                    <div class="upvotes-inactive">
-                        <div class="widen">
-                            <a>&#8593;</a>
-                            <a class="closer">{{ meme.num_vote_up }}</a>
-                        </div>
+                    <div class="d-flex">
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="background-primary">
+                            <div class="widen d-flex">
+                                <div class="color-white"><a>&#8593;</a></div>
+                                <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
+                            </div>
+                        </button>
+                        <button type="button" class="btn background-primary color-white inactive" disabled>
+                            <div><a>|</a></div>
+                        </button>
+                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme" class="background-primary">
+                            <div class="widen d-flex">
+                                <div class="color-white"><a>&#8595;</a></div>
+                                <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
+                            </div>
+                        </button>
                     </div>
                     {% endif %}
                 </form>

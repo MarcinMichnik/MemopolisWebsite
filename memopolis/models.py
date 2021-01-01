@@ -19,6 +19,7 @@ class Meme(VoteModel, models.Model):
     image = models.ImageField(null=True)
     date_posted = models.DateTimeField(default=timezone.now)
     
+    
     accepted = models.BooleanField(default=False)
     
     def __str__(self):
