@@ -217,6 +217,10 @@ hr {
   color: $primary-color;
 }
 
+.container {
+  width: auto;
+}
+
 .author {
   justify-content: stretch;
 }
@@ -333,8 +337,8 @@ header {
 }
 
 .step-links div {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .pagination {
@@ -460,8 +464,8 @@ header {
 }
 
 .prev a, .forth a {
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .user-app-wrap {
@@ -653,7 +657,7 @@ a:hover {
   }
 
   .container .row {
-    margin-left: 105px;
+    margin-left: 150px;
   }
 
   .results {
@@ -722,7 +726,7 @@ a:hover {
 /*hamburger mode*/
 @media (max-width: 770px) {
   .pagination * {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .mobilewidth {
@@ -751,7 +755,9 @@ a:hover {
   }
 
 
-
+  .step-links button {
+    padding: 10px;
+  }
 
   .dropdown {
     display: block;
@@ -767,7 +773,7 @@ a:hover {
 
 
   .pagination * {
-    font-size: 11px;
+    font-size: 7px;
   }
 
   .memeTitle {
@@ -782,8 +788,10 @@ a:hover {
     margin-left: 15px;
   }
 
-  .pagination * {
-    font-size: 7px;
+
+  .step-links div {
+    margin-left: 8px;
+    margin-right: 8px;
   }
 }
 
@@ -791,5 +799,13 @@ a:hover {
 
   .media-body p {
     font-size: 13px;
+  }
+
+  .step-links div {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  .step-links button {
+    padding: 5px;
   }
 }
