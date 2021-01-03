@@ -1,6 +1,189 @@
 {% extends "memopolis/base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
+{% block javascript %}
+<script>
+    console.log("submit");
+    /*
+        On submiting the form, send the POST ajax
+        request to server and after successfull submission
+        display the object.
+    */
+    $(".vote-post-class").submit(function (e) {
+        // preventing from page reload and default actions
+        console.log("submit");
+        e.preventDefault();
+        // serialize the data for sending the form data.
+        var serializedData = $(this).serialize();
+
+        let what_to_do = $(this).children('button').children('input.what_to_do')[0].attributes[1].value;
+        let this_num = $(this)
+            .children('button')
+            .children('div.widen.d-flex')
+            .children('div.num')
+            .children('a');
+        let this_symbol_div = $(this)
+            .children('button')
+            .children('div.widen.d-flex')
+            .children('div.symbol')[0];
+        let other_num;
+        let other_symbol_div;
+        let if_user_voted_other;
+        let other_vote_info;
+        let this_vote_info = $(this).children('button').children('p');
+        let if_user_voted_this = this_vote_info[0].innerText;
+        if (if_user_voted_this == "False" || if_user_voted_this == "false") {
+            if_user_voted_this = false;
+        } else if (if_user_voted_this == "True" || if_user_voted_this == "true") {
+            if_user_voted_this = true;
+        }
+
+        if (what_to_do == "up") {
+            other_num = $(this)
+                .parent()
+                .children()
+                .eq(2)
+                .children('button')
+                .children('div.widen.d-flex')
+                .children('div.num')
+                .children('a');
+            other_symbol_div = $(this)
+                .parent()
+                .children()
+                .eq(2)
+                .children('button')
+                .children('div.widen.d-flex')
+                .children('div.symbol')[0];
+
+            other_vote_info = $(this).parent().children().eq(2).children('button').children('p');
+            if_user_voted_other = $(this).parent().children().eq(2).children('button').children('p')[0].innerText;
+
+        } else if (what_to_do == "down") {
+            other_num = $(this)
+                .parent()
+                .children()
+                .first('form')
+                .children('button')
+                .children('div.widen.d-flex')
+                .children('div.num')
+                .children('a');
+            other_symbol_div = $(this)
+                .parent()
+                .children()
+                .first('form')
+                .children('button')
+                .children('div.widen.d-flex')
+                .children('div.symbol')[0];
+
+            other_vote_info = $(this).parent().children().first('form').children('button').children('p');
+            if_user_voted_other = $(this).parent().children().first('form').children('button').children('p')[0].innerText;
+
+        }
+        if (if_user_voted_other == "False" || if_user_voted_other == "false") {
+                if_user_voted_other = false;
+            } else if (if_user_voted_other == "True" || if_user_voted_other == "true") {
+                if_user_voted_other = true;
+            }
+
+        if ((what_to_do == "up" && (if_user_voted_this))) {
+            this_num[0].innerText = parseInt(this_num[0].innerText) - 1;
+
+            this_vote_info[0].innerText = "false";
+            if_user_voted_this = false;
+
+            this_symbol_div.classList.remove("color-green");
+            this_symbol_div.classList.add("color-white");
+
+        } else if (what_to_do == "up" && !(if_user_voted_this || if_user_voted_other)) {
+            this_num[0].innerText = parseInt(this_num[0].innerText) + 1;
+
+            this_vote_info[0].innerText = "true";
+            if_user_voted_this = true;
+
+            this_symbol_div.classList.remove("color-white");
+            this_symbol_div.classList.add("color-green");
+
+        } else if ((what_to_do == "up" && (if_user_voted_other))) {
+            this_num[0].innerText = parseInt(this_num[0].innerText) + 1;
+            other_num[0].innerText = parseInt(other_num[0].innerText) - 1;
+
+            this_vote_info[0].innerText = "true";
+            if_user_voted_this = true;
+            other_vote_info[0].innerText = "false";
+            if_user_voted_other = false;
+
+            this_symbol_div.classList.remove("color-white");
+            this_symbol_div.classList.add("color-green");
+
+            other_symbol_div.classList.remove("color-red");
+            other_symbol_div.classList.add("color-white");
+
+        } else if ((what_to_do == "down" && (if_user_voted_this))) {
+            this_num[0].innerText = parseInt(this_num[0].innerText) - 1;
+            this_vote_info[0].innerText = false;
+            if_user_voted_this = false;
+
+            this_symbol_div.classList.remove("color-red");
+            this_symbol_div.classList.add("color-white");
+
+        }  else if (what_to_do == "down" && !(if_user_voted_this || if_user_voted_other)) {
+            this_num[0].innerText = parseInt(this_num[0].innerText) + 1;
+            this_vote_info[0].innerText = true;
+            if_user_voted_this = true;
+
+            this_symbol_div.classList.remove("color-white");
+            this_symbol_div.classList.add("color-red");
+            
+        }  else if ((what_to_do == "down" && (if_user_voted_other))) {
+            this_num[0].innerText = parseInt(this_num[0].innerText) + 1;
+            other_num[0].innerText = parseInt(other_num[0].innerText) - 1;
+            this_vote_info[0].innerText = true;
+            other_vote_info[0].innerText = false;
+            if_user_voted_this = true;
+            if_user_voted_other = false;
+
+            this_symbol_div.classList.remove("color-white");
+            this_symbol_div.classList.add("color-red");
+
+            other_symbol_div.classList.remove("color-green");
+            other_symbol_div.classList.add("color-white");
+        }
+
+        // make POST ajax call
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'post-vote' %}",
+            data: serializedData
+        
+        })
+    })
+</script>
+<script>
+    console.log("post comment");
+    /*
+        On submiting the form, send the POST ajax
+        request to server and after successfull submission
+        display the object.
+    */
+    $("#post-comment").submit(function (e) {
+        // preventing from page reload and default actions
+        console.log("post comment");
+        e.preventDefault();
+        // serialize the data for sending the form data.
+        var serializedData = $(this).serialize();
+
+       
+
+        // make POST ajax call
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'post-comment' %}",
+            data: serializedData
+        
+        })
+    })
+</script>
+{% endblock javascript %}
 {% block content %}
 
 {% if user.id == meme.author.id %}
@@ -46,58 +229,73 @@
         </div>
         <div class="actions">
             <div class="votes">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    {% if user.is_authenticated %}
-                    <div class="d-flex">
-                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="background-primary btn-outline-primary">
-                            <div class="widen d-flex">
-                                {% if up %}
-                                    <div class="color-green"><a>&#8593;</a></div>
-                                    <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
-                                {% else %}
-                                    <div class="color-white"><a>&#8593;</a></div>
-                                    <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
-                                {% endif %}
-                            </div>
-                        </button>
-                        <button type="button" class="btn background-primary color-white inactive" disabled>
-                            <div><a>|</a></div>
-                        </button>
-                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme" class="background-primary btn-outline-primary">
-                            <div class="widen d-flex">
-                                {% if down %}
-                                    <div class="color-red"><a>&#8595;</a></div>
-                                    <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
-                                {% else %}
-                                    <div class="color-white"><a>&#8595;</a></div>
-                                    <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
-                                {% endif %}
-                            </div>
-                        </button>
-                    </div>
+                {% if user.is_authenticated %}
+                <div class="d-flex">
+                    <form class="vote-post-class">
+                        {% csrf_token %}
+                        <button type="submit" class="background-primary btn-outline-primary">
+                            <p class="hidden">{{ meme.if_user_upvoted }}</p>
+                            <input name="object_pk" value="{{ meme.pk }}" class="hidden object_pk">
+                            <input name="user_id" value="{{ user.id }}" class="hidden user_id">
+                            <input name="what_to_do" value="up" class="hidden what_to_do">
+                            <input name="direction" value="meme" class="hidden direction">
 
-                    {% else %}
-                    <div class="d-flex">
-                        <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="background-primary">
                             <div class="widen d-flex">
-                                <div class="color-white"><a>&#8593;</a></div>
-                                <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
+                                {% if meme.if_user_upvoted %}
+                                    <div class="color-green symbol"><a>&#8593;</a></div>
+                                    <div class="color-green num"><a>{{ meme.num_vote_up }}</a></div>
+                                {% else %}
+                                    <div class="color-white symbol"><a>&#8593;</a></div>
+                                    <div class="color-green num"><a>{{ meme.num_vote_up }}</a></div>
+                                {% endif %}
                             </div>
                         </button>
-                        <button type="button" class="btn background-primary color-white inactive" disabled>
-                            <div><a>|</a></div>
-                        </button>
-                        <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme" class="background-primary">
+                    </form>
+
+                    <button type="button" class="btn background-primary color-white inactive" disabled>
+                        <div><a>|</a></div>
+                    </button>
+                    <form class="vote-post-class">
+                        {% csrf_token %}
+                        <button type="submit" class="background-primary btn-outline-primary">
+                            <p class="hidden">{{ meme.if_user_downvoted }}</p>
+                            <input name="object_pk" value="{{ meme.pk }}" class="hidden object_pk">
+                            <input name="user_id" value="{{ user.id }}" class="hidden user_id">
+                            <input name="what_to_do" value="down" class="hidden what_to_do">
+                            <input name="direction" value="meme" class="hidden direction">
                             <div class="widen d-flex">
-                                <div class="color-white"><a>&#8595;</a></div>
-                                <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
+                                {% if meme.if_user_downvoted %}
+                                    <div class="color-red symbol"><a>&#8595;</a></div>
+                                    <div class="color-red num"><a>{{ meme.num_vote_down }}</a></div>
+                                {% else %}
+                                    <div class="color-white symbol"><a>&#8595;</a></div>
+                                    <div class="color-red num"><a>{{ meme.num_vote_down }}</a></div>
+                                {% endif %}
                             </div>
                         </button>
-                    </div>
-                    {% endif %}
-                </form>
-            </div>
+                    </form>
+                </div>
+
+                {% else %}
+                <div class="d-flex">
+                    <button type="submit" name="{{ meme.pk }} {{ user.id }} up meme" class="background-primary">
+                        <div class="widen d-flex">
+                            <div class="color-white"><a>&#8593;</a></div>
+                            <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
+                        </div>
+                    </button>
+                    <button type="button" class="btn background-primary color-white inactive" disabled>
+                        <div><a>|</a></div>
+                    </button>
+                    <button type="submit" name="{{ meme.pk }} {{ user.id }} down meme" class="background-primary">
+                        <div class="widen d-flex">
+                            <div class="color-white"><a>&#8595;</a></div>
+                            <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
+                        </div>
+                    </button>
+                </div>
+                {% endif %}
+        </div>
             <div class="act">
 
             </div>
@@ -121,16 +319,15 @@
 
         </div>
         <div class="comment-content">
-            <form action="" method="POST">
+            <form id="post-comment">
                 {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Nowy komentarz</legend>
                     {{ form|crispy }}
                 </fieldset>
                 <div class="form-group">
-                    <button class="btn btn-outlint-info" type="submit">Dodaj komentarz</button>
+                    <button class="btn btn-outline-info" type="submit">Dodaj komentarz</button>
                 </div>
-
             </form>
         </div>
     </div>
@@ -152,7 +349,7 @@
         </div>
         <div class="actions">
             <div class="votes">
-                <form action="" method="post">
+                <!-- <form action="" method="post">
                     {% csrf_token %}
                     {% if user.is_authenticated %}
                     <button type="submit" name="{{ comment.pk }} {{ user.id }} up comment"
@@ -160,7 +357,7 @@
                     {% else %}
                     <a class="upvotes">{{ comment.num_vote_up }}</a>
                     {% endif %}
-                </form>
+                </form> -->
             </div>
 
             <div class="act">
@@ -168,7 +365,7 @@
                 {% if user.id == comment.author.id %}
                 <button onclick="revealDeleteComment( {{ forloop.counter }} )" class="comment to-be-veiled">Usuń</button>
                 <div class="veil veiled-delete-comment">
-                    <form action="" method="post">
+                    <!-- <form action="" method="post">
                         {% csrf_token %}
                         <div class="d-flex">
                             <div>
@@ -179,7 +376,7 @@
                                 <button type="submit" name="{{ comment.pk }} {{ user.id }} del comment" class="comment">Potwierdź</button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                 </div>
 
 

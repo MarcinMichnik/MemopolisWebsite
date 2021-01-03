@@ -18,7 +18,7 @@ class Meme(VoteModel, models.Model):
 
     image = models.ImageField(null=True)
     date_posted = models.DateTimeField(default=timezone.now)
-    
+
     
     accepted = models.BooleanField(default=False)
     
@@ -27,6 +27,7 @@ class Meme(VoteModel, models.Model):
     
     def get_absolute_url(self):
         return reverse('meme-detail', kwargs={'pk':self.pk})
+    
     
 class Comment(VoteModel, models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)

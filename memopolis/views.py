@@ -13,6 +13,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from .forms import CommentRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import JsonResponse
 
 class MemeListView(ListView):
     template_name = 'memopolis/index.html'
@@ -38,6 +39,10 @@ class MemeListView(ListView):
         elif self.template_name == 'memopolis/unaccepted_memes.html':
             meme_list = Meme.objects.order_by("-date_posted").filter(accepted=False)
             
+        for meme in meme_list:
+            meme.if_user_upvoted = meme.votes.exists(request.user.id, action=0)
+            meme.if_user_downvoted = meme.votes.exists(request.user.id, action=1)        
+            
         paginator = Paginator(meme_list, 2)
 
         page_number = request.GET.get('page')
@@ -45,46 +50,6 @@ class MemeListView(ListView):
         context['page_obj'] = page_obj
 
         return render(request, template, context)
-
-    def post(self, request):
-        
-        raw = list(request.POST)[1]
-
-        raw = raw.split(' ')
-        
-        object_pk, user_id, what_to_do = raw[0], raw[1], raw[2]
-
-
-        meme = Meme.objects.get(pk=object_pk)
-        
-        if what_to_do == 'up':
-            if meme.votes.exists(user_id, action=0):
-                meme.votes.delete(user_id)
-                meme.num_vote_up-=1
-            elif meme.votes.exists(user_id, action=1):
-                meme.votes.delete(user_id)
-                meme.num_vote_down-=1
-                meme.votes.up(user_id)
-                meme.num_vote_up+=1
-            else:
-                meme.votes.up(user_id)
-                meme.num_vote_up+=1
-                
-        elif what_to_do == 'down':
-            if meme.votes.exists(user_id, action=0):
-                meme.votes.delete(user_id)
-                meme.num_vote_up-=1
-                meme.votes.down(user_id)
-                meme.num_vote_down+=1
-            elif meme.votes.exists(user_id, action=1):
-                meme.votes.delete(user_id)
-                meme.num_vote_down-=1
-            else:
-                meme.votes.down(user_id)
-                meme.num_vote_down+=1
-        meme.save()
-        
-        return redirect('/')
         
 class TopMemeListView(MemeListView):
     template_name = 'memopolis/top.html'
@@ -98,46 +63,6 @@ class TopMemeListView(MemeListView):
             context = super().get_context_data(**kwargs)
         return context
     
-    def post(self, request):
-        
-        raw = list(request.POST)[1]
-
-        raw = raw.split(' ')
-        
-        object_pk, user_id, what_to_do = raw[0], raw[1], raw[2]
-
-        
-        meme = Meme.objects.get(pk=object_pk)
-        
-        if what_to_do == 'up':
-            if meme.votes.exists(user_id, action=0):
-                meme.votes.delete(user_id)
-                meme.num_vote_up-=1
-            elif meme.votes.exists(user_id, action=1):
-                meme.votes.delete(user_id)
-                meme.num_vote_down-=1
-                meme.votes.up(user_id)
-                meme.num_vote_up+=1
-            else:
-                meme.votes.up(user_id)
-                meme.num_vote_up+=1
-                
-        elif what_to_do == 'down':
-            if meme.votes.exists(user_id, action=0):
-                meme.votes.delete(user_id)
-                meme.num_vote_up-=1
-                meme.votes.down(user_id)
-                meme.num_vote_down+=1
-            elif meme.votes.exists(user_id, action=1):
-                meme.votes.delete(user_id)
-                meme.num_vote_down-=1
-            else:
-                meme.votes.down(user_id)
-                meme.num_vote_down+=1
-        meme.save()
-        
-        return redirect('/top/')
-    
 class UnacceptedMemeListView(MemeListView):
     template_name = 'memopolis/unaccepted_memes.html'
     
@@ -147,47 +72,6 @@ class UnacceptedMemeListView(MemeListView):
         context['memes']=memes
         
         return context
-    
-    def post(self, request):
-        
-        raw = list(request.POST)[1]
-
-        raw = raw.split(' ')
-        
-        object_pk, user_id, what_to_do = raw[0], raw[1], raw[2]
-
-        
-        meme = Meme.objects.get(pk=object_pk)
-
-            
-        if what_to_do == 'up':
-            if meme.votes.exists(user_id, action=0):
-                meme.votes.delete(user_id)
-                meme.num_vote_up-=1
-            elif meme.votes.exists(user_id, action=1):
-                meme.votes.delete(user_id)
-                meme.num_vote_down-=1
-                meme.votes.up(user_id)
-                meme.num_vote_up+=1
-            else:
-                meme.votes.up(user_id)
-                meme.num_vote_up+=1
-                
-        elif what_to_do == 'down':
-            if meme.votes.exists(user_id, action=0):
-                meme.votes.delete(user_id)
-                meme.num_vote_up-=1
-                meme.votes.down(user_id)
-                meme.num_vote_down+=1
-            elif meme.votes.exists(user_id, action=1):
-                meme.votes.delete(user_id)
-                meme.num_vote_down-=1
-            else:
-                meme.votes.down(user_id)
-                meme.num_vote_down+=1
-        meme.save()
-        
-        return redirect('/poczekalnia/')
     
 class MemeDetailView(DetailView):
     model = Meme
@@ -201,86 +85,12 @@ class MemeDetailView(DetailView):
         form = CommentRegisterForm()
         context['form'] = form
         
-        context['up'] = meme.votes.exists(self.request.user.id, action=0)
-        context['down'] = meme.votes.exists(self.request.user.id, action=1)
+        meme.if_user_upvoted = meme.votes.exists(self.request.user.id, action=0)
+        meme.if_user_downvoted= meme.votes.exists(self.request.user.id, action=1)
+        
+        
         
         return context
-
-    
-    def post(self, request, *args, **kwargs):
-        
-        raw = request.POST
-        
-        
-        if list(raw)[1]!='content':
-            raw = list(request.POST)[1]
-            raw = raw.split(' ')
-            print(raw)
-            object_pk, user_id, what_to_do, direction = raw[0], raw[1], raw[2], raw[3]
-
-        else:
-            raw = request.POST['content']
-            direction='create_comment'
-        
-        if direction == 'meme':
-            meme = Meme.objects.get(pk=object_pk)
-            
-            if what_to_do == 'up':
-                if meme.votes.exists(user_id, action=0):
-                    meme.votes.delete(user_id)
-                    meme.num_vote_up-=1
-                elif meme.votes.exists(user_id, action=1):
-                    meme.votes.delete(user_id)
-                    meme.num_vote_down-=1
-                    meme.votes.up(user_id)
-                    meme.num_vote_up+=1
-                else:
-                    meme.votes.up(user_id)
-                    meme.num_vote_up+=1
-                    
-            elif what_to_do == 'down':
-                if meme.votes.exists(user_id, action=0):
-                    meme.votes.delete(user_id)
-                    meme.num_vote_up-=1
-                    meme.votes.down(user_id)
-                    meme.num_vote_down+=1
-                elif meme.votes.exists(user_id, action=1):
-                    meme.votes.delete(user_id)
-                    meme.num_vote_down-=1
-                else:
-                    meme.votes.down(user_id)
-                    meme.num_vote_down+=1
-            meme.save()
-            
-        elif direction == 'comment' and what_to_do != 'del':
-            comment = Comment.objects.get(pk=object_pk)
-            if what_to_do == 'up':
-                if comment.votes.exists(user_id):
-                    comment.votes.delete(user_id)
-                    comment.num_vote_up-=1
-                else:
-                    comment.votes.up(user_id)
-                    comment.num_vote_up+=1
-            comment.save()
-            
-        elif direction == 'comment' and what_to_do == 'del':
-            comment = Comment.objects.get(pk=object_pk)
-            comment.delete()
-        
-        elif direction == 'create_comment':
-            comment = Comment()
-
-            comment.content = raw
-            comment.author=request.user
-            self.object = self.get_object()
-            context = self.get_context_data()
-
-            comment.belongs_to = context['meme']
-            
-            
-            comment.save()
-
-        return HttpResponseRedirect(self.request.path_info)
     
 class MemeCreateView(CreateView):
     model = Meme
@@ -358,6 +168,66 @@ class MemeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == meme.author:
             return True
         return False
-    
+
+def post_vote(request):
+    # request should be ajax and method should be POST.
+    if request.is_ajax and request.method == "POST":
+        # get the form data
+        
+        object_pk = request.POST["object_pk"]
+        user_id = request.POST["user_id"]
+        what_to_do = request.POST["what_to_do"]
+        direction = request.POST["direction"]
+
+        meme = Meme.objects.get(pk=object_pk)
+        
+        if direction == 'meme':
+            if what_to_do == 'up':
+                if meme.votes.exists(user_id, action=0):
+                    meme.votes.delete(user_id)
+                    meme.num_vote_up-=1
+                elif meme.votes.exists(user_id, action=1):
+                    meme.votes.delete(user_id)
+                    meme.num_vote_down-=1
+                    meme.votes.up(user_id)
+                    meme.num_vote_up+=1
+                else:
+                    meme.votes.up(user_id)
+                    meme.num_vote_up+=1
+                    
+            elif what_to_do == 'down':
+                if meme.votes.exists(user_id, action=0):
+                    meme.votes.delete(user_id)
+                    meme.num_vote_up-=1
+                    meme.votes.down(user_id)
+                    meme.num_vote_down+=1
+                elif meme.votes.exists(user_id, action=1):
+                    meme.votes.delete(user_id)
+                    meme.num_vote_down-=1
+                else:
+                    meme.votes.down(user_id)
+                    meme.num_vote_down+=1
+        else:
+            print('direction error')
+        meme.save()
+
+        # send to client side.
+        return JsonResponse({}, status=200)
+
+    # some error occured
+    return JsonResponse({"error": ""}, status=400)
+
+def post_comment(request):
+    # request should be ajax and method should be POST.
+    if request.is_ajax and request.method == "POST":
+        # get the form data
+        
+
+        # send to client side.
+        return JsonResponse({}, status=200)
+
+    # some error occured
+    return JsonResponse({"error": ""}, status=400)
+
 def kontakt(request):
     return render(request, 'memopolis/kontakt.html')
