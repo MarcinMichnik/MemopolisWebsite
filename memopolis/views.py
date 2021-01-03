@@ -88,7 +88,9 @@ class MemeDetailView(DetailView):
         meme.if_user_upvoted = meme.votes.exists(self.request.user.id, action=0)
         meme.if_user_downvoted= meme.votes.exists(self.request.user.id, action=1)
         
-        
+        for comment in comments:
+            comment.if_user_upvoted = comment.votes.exists(self.request.user.id, action=0)
+            comment.if_user_downvoted = comment.votes.exists(self.request.user.id, action=1)
         
         return context
     
@@ -179,9 +181,11 @@ def post_vote(request):
         what_to_do = request.POST["what_to_do"]
         direction = request.POST["direction"]
 
-        meme = Meme.objects.get(pk=object_pk)
+
+
         
         if direction == 'meme':
+            meme = Meme.objects.get(pk=object_pk)
             if what_to_do == 'up':
                 if meme.votes.exists(user_id, action=0):
                     meme.votes.delete(user_id)
@@ -207,9 +211,40 @@ def post_vote(request):
                 else:
                     meme.votes.down(user_id)
                     meme.num_vote_down+=1
+            meme.save()
+            
+        elif direction == 'comment':
+            comment = Comment.objects.get(pk=object_pk)
+            if what_to_do == 'up':
+                if comment.votes.exists(user_id, action=0):
+                    comment.votes.delete(user_id)
+                    comment.num_vote_up-=1
+                elif comment.votes.exists(user_id, action=1):
+                    comment.votes.delete(user_id)
+                    comment.num_vote_down-=1
+                    comment.votes.up(user_id)
+                    comment.num_vote_up+=1
+                else:
+                    comment.votes.up(user_id)
+                    comment.num_vote_up+=1
+                    
+            elif what_to_do == 'down':
+                if comment.votes.exists(user_id, action=0):
+                    comment.votes.delete(user_id)
+                    comment.num_vote_up-=1
+                    comment.votes.down(user_id)
+                    comment.num_vote_down+=1
+                elif comment.votes.exists(user_id, action=1):
+                    comment.votes.delete(user_id)
+                    comment.num_vote_down-=1
+                else:
+                    comment.votes.down(user_id)
+                    comment.num_vote_down+=1    
+            comment.save()       
+        
         else:
             print('direction error')
-        meme.save()
+
 
         # send to client side.
         return JsonResponse({}, status=200)
@@ -222,6 +257,41 @@ def post_comment(request):
     if request.is_ajax and request.method == "POST":
         # get the form data
         
+        content = request.POST['content']
+        direction = request.POST['direction']
+        meme_pk = request.POST['meme-pk']
+        meme = Meme.objects.get(pk=meme_pk)
+        
+        if direction == 'create-comment':
+            comment = Comment()
+
+            comment.content = content
+            comment.author = request.user
+
+            comment.belongs_to = meme
+            
+            
+            
+            comment.save()
+
+        # send to client side.
+        return JsonResponse({}, status=200)
+
+    # some error occured
+    return JsonResponse({"error": ""}, status=400)
+
+def delete_comment(request):
+    # request should be ajax and method should be POST.
+    if request.is_ajax and request.method == "POST":
+        # get the form data
+        
+        direction = request.POST['direction']
+        object_pk = request.POST['object_pk']
+        
+        if direction == 'delete-comment':
+            comment = Comment.objects.get(pk=object_pk)
+
+            comment.delete()
 
         # send to client side.
         return JsonResponse({}, status=200)

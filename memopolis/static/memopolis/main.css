@@ -237,6 +237,10 @@ button.inactive:hover {
   color: #94ec94;
 }
 
+.downvotes {
+  color: Tomato;
+}
+
 .upvotes-inactive {
   color: white;
   margin-left: 7px;

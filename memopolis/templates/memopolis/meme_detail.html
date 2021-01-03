@@ -19,12 +19,12 @@
         let what_to_do = $(this).children('button').children('input.what_to_do')[0].attributes[1].value;
         let this_num = $(this)
             .children('button')
-            .children('div.widen.d-flex')
+            .children('div.d-flex')
             .children('div.num')
             .children('a');
         let this_symbol_div = $(this)
             .children('button')
-            .children('div.widen.d-flex')
+            .children('div.d-flex')
             .children('div.symbol')[0];
         let other_num;
         let other_symbol_div;
@@ -44,7 +44,7 @@
                 .children()
                 .eq(2)
                 .children('button')
-                .children('div.widen.d-flex')
+                .children('div.d-flex')
                 .children('div.num')
                 .children('a');
             other_symbol_div = $(this)
@@ -52,7 +52,7 @@
                 .children()
                 .eq(2)
                 .children('button')
-                .children('div.widen.d-flex')
+                .children('div.d-flex')
                 .children('div.symbol')[0];
 
             other_vote_info = $(this).parent().children().eq(2).children('button').children('p');
@@ -64,7 +64,7 @@
                 .children()
                 .first('form')
                 .children('button')
-                .children('div.widen.d-flex')
+                .children('div.d-flex')
                 .children('div.num')
                 .children('a');
             other_symbol_div = $(this)
@@ -72,7 +72,7 @@
                 .children()
                 .first('form')
                 .children('button')
-                .children('div.widen.d-flex')
+                .children('div.d-flex')
                 .children('div.symbol')[0];
 
             other_vote_info = $(this).parent().children().first('form').children('button').children('p');
@@ -168,7 +168,7 @@
     $("#post-comment").submit(function (e) {
         // preventing from page reload and default actions
         console.log("post comment");
-        e.preventDefault();
+        //e.preventDefault();
         // serialize the data for sending the form data.
         var serializedData = $(this).serialize();
 
@@ -178,6 +178,29 @@
         $.ajax({
             type: 'POST',
             url: "{% url 'post-comment' %}",
+            data: serializedData
+        
+        })
+    })
+</script>
+<script>
+    console.log("delete comment");
+    /*
+        On submiting the form, send the POST ajax
+        request to server and after successfull submission
+        display the object.
+    */
+    $("#delete-comment").submit(function (e) {
+        // preventing from page reload and default actions
+        console.log("delete comment");
+        //e.preventDefault();
+        // serialize the data for sending the form data.
+        var serializedData = $(this).serialize();
+
+        // make POST ajax call
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'delete-comment' %}",
             data: serializedData
         
         })
@@ -321,6 +344,8 @@
         <div class="comment-content">
             <form id="post-comment">
                 {% csrf_token %}
+                <input name="direction" value="create-comment" class="hidden">
+                <input name="meme-pk" value="{{ meme.pk }}" class="hidden">
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Nowy komentarz</legend>
                     {{ form|crispy }}
@@ -348,35 +373,75 @@
             {{ comment.content }}
         </div>
         <div class="actions">
-            <div class="votes">
-                <!-- <form action="" method="post">
+            {% if user.is_authenticated %}
+            <div class="votes d-flex">
+
+                <form class="vote-post-class">
                     {% csrf_token %}
-                    {% if user.is_authenticated %}
-                    <button type="submit" name="{{ comment.pk }} {{ user.id }} up comment"
-                        class="upvotes">{{ comment.num_vote_up }}</button>
-                    {% else %}
-                    <a class="upvotes">{{ comment.num_vote_up }}</a>
-                    {% endif %}
-                </form> -->
+
+                    <button type="submit" class="background-primary btn-outline-primary">
+                        <p class="hidden">{{ comment.if_user_upvoted }}</p>
+                        <input name="object_pk" value="{{ comment.pk }}" class="hidden object_pk">
+                        <input name="user_id" value="{{ user.id }}" class="hidden uder_id">
+                        <input name="what_to_do" value="up" class="hidden what_to_do">
+                        <input name="direction" value="comment" class="hidden direction">
+                        
+                        <div class="d-flex">
+                            {% if comment.if_user_upvoted %}
+                                <div class="color-green symbol"><a>&#8593;</a></div>
+                                <div class="color-green num"><a>{{ comment.num_vote_up }}</a></div>
+                            {% else %}
+                                <div class="color-white symbol"><a>&#8593;</a></div>
+                                <div class="color-green num"><a>{{ comment.num_vote_up }}</a></div>
+                            {% endif %}
+                        </div>
+                    </button>
+                </form>
+                <div></div>
+                <form class="vote-post-class">
+                    {% csrf_token %}
+
+                    <button type="submit" class="background-primary btn-outline-primary">
+                        <p class="hidden">{{ comment.if_user_downvoted }}</p>
+                        <input name="object_pk" value="{{ comment.pk }}" class="hidden object_pk">
+                        <input name="user_id" value="{{ user.id }}" class="hidden user_id">
+                        <input name="what_to_do" value="down" class="hidden what_to_do">
+                        <input name="direction" value="comment" class="hidden direction">
+                        
+                        <div class="d-flex">
+                            {% if comment.if_user_downvoted %}
+                                <div class="color-red symbol"><a>&#8595;</a></div>
+                                <div class="color-red num"><a>{{ comment.num_vote_down }}</a></div>
+                            {% else %}
+                                <div class="color-white symbol"><a>&#8595;</a></div>
+                                <div class="color-red num"><a>{{ comment.num_vote_down }}</a></div>
+                            {% endif %}
+                        </div>
+                    </button>
+                </form>
+
             </div>
+            {% endif %}
 
             <div class="act">
                 <!-- <button class="comment">Odpowiedz</button> -->
                 {% if user.id == comment.author.id %}
                 <button onclick="revealDeleteComment( {{ forloop.counter }} )" class="comment to-be-veiled">Usuń</button>
                 <div class="veil veiled-delete-comment">
-                    <!-- <form action="" method="post">
+                    <form id="delete-comment">
                         {% csrf_token %}
+                        <input name="direction" value="delete-comment" class="hidden">
+                        <input name="object_pk" value="{{ comment.pk }}" class="hidden">
                         <div class="d-flex">
                             <div>
                                 <p class="card-text">Na pewno usunąć?</p>
                             </div>
     
                             <div>
-                                <button type="submit" name="{{ comment.pk }} {{ user.id }} del comment" class="comment">Potwierdź</button>
+                                <button type="submit" class="comment">Potwierdź</button>
                             </div>
                         </div>
-                    </form> -->
+                    </form>
                 </div>
 
 

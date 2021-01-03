@@ -9,7 +9,8 @@ from .views import (MemeListView,
                     YourPointsView,
                     MemeDeleteView,
                     post_vote,
-                    post_comment)
+                    post_comment,
+                    delete_comment)
 from . import views
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     path('meme/<int:pk>/usuń/', MemeDeleteView.as_view(), name="meme-delete"),
     path('post/ajax/vote', post_vote, name = "post-vote"),
     path('post/ajax/comment', post_comment, name = "post-comment"),
+    path('post/ajax/del-comment', delete_comment, name = "delete-comment"),
 ]
