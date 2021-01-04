@@ -1,4 +1,4 @@
-$primary-color: #185a8a;
+$primary-color: #0268b6;
 $highlight-primary-color: #007bff;
 $secondary-color: rgb(228, 228, 228);
 $green: MediumSeaGreen;
@@ -7,7 +7,7 @@ $red: Tomato;
 body {
   background: whitesmoke;
   color: #333333;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', serif;
 }
 
 .background-primary {
@@ -75,7 +75,7 @@ body a {
 
 .top {
   border-style: solid;
-  border-width: 8px;
+  border-width: 7px;
   margin-bottom: 20px;
 }
 
@@ -124,7 +124,7 @@ hr {
   border: solid $primary-color;
   border-width: 8px;
   min-height: 500px;
-  width: 320px;
+  width: 330px;
   background-color: rgb(238, 238, 238);
   margin-bottom: 40px;
 }
@@ -416,7 +416,7 @@ header {
 .col-md-4 {
   width: 200px;
   text-align: center;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 
 .collapse {

@@ -2,16 +2,6 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-<hr>
-<div class="navbar container submenu">
-  <div>
-    <a href="{% url 'memopolis-your-memes' %}" class="font-weight-bold">Twoje memy</a>
-  </div>
-  <div>
-    <a href="{% url 'memopolis-your-points' %}" class="font-weight-bold">Twoje punkty</a>
-  </div>
-</div>
-<hr>
 <div class="content-section" id="profile">
   <div class="media">
     <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">

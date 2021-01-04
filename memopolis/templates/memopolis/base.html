@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'memopolis/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'memopolis/main.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'memopolis/favicon.ico' %}"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Montserrat">
     <title>Memopolis</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -71,6 +73,18 @@
             {{ message }}
         </div>
         {% endfor %}
+        {% endif %}
+        {% if user.is_authenticated %}
+        <hr>
+        <div class="navbar container submenu">
+        <div>
+            <a href="{% url 'memopolis-your-memes' %}" class="font-weight-bold">Twoje memy</a>
+        </div>
+        <div>
+            <a href="{% url 'memopolis-your-points' %}" class="font-weight-bold">Twoje punkty</a>
+        </div>
+        </div>
+        <hr>
         {% endif %}
         {% block content %}{% endblock %}
     </main>
