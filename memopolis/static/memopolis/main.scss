@@ -64,6 +64,7 @@ body a {
 
 .your-memes .top {
   width: 230px;
+  display: inline-block;
 }
 
 .top img {
@@ -197,7 +198,9 @@ hr {
   color: whitesmoke;
 }
 
-
+.margin-bottom2 {
+  margin-bottom: 22px;
+}
 
 .add-button {
   font-size: 50px;
@@ -213,8 +216,16 @@ hr {
   color: rgb(91, 223, 91);
 }
 
+.red {
+  color: rgb(255, 99, 71);
+}
+
 .add-button button {
   color: $primary-color;
+}
+
+.text .container div .grey-hov:hover {
+  color:rgb(117, 112, 112);
 }
 
 .container {
@@ -242,7 +253,7 @@ a {
 }
 
 button.inactive:hover {
-  color:white;
+  color: white;
   cursor: auto;
 }
 
@@ -456,14 +467,13 @@ header {
 }
 
 .bag {
-  width: 250px;
   text-align: center;
-  padding-left: 10px;
   font-size: 25px;
 
 }
 
-.prev a, .forth a {
+.prev a,
+.forth a {
   margin-left: 2px;
   margin-right: 2px;
 }
@@ -652,8 +662,21 @@ a:hover {
     font-size: 11px;
   }
 
+  div.actions * {
+    font-size: 35px;
+  }
+
+  div.actions div.act,
+  button.inactive {
+    display: none;
+  }
+
   .container {
     flex-wrap: nowrap !important;
+  }
+
+  div.results {
+    display: block !important;
   }
 
   .container .row {
@@ -793,6 +816,10 @@ a:hover {
     margin-left: 8px;
     margin-right: 8px;
   }
+
+  div.actions * {
+    font-size: 28px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -805,7 +832,39 @@ a:hover {
     margin-left: 2px;
     margin-right: 2px;
   }
+
   .step-links button {
     padding: 5px;
   }
+
+  div.actions * {
+    font-size: 20px;
+  }
+
+
+}
+@media (max-width: 320px) {
+  div.submenu * {
+    font-size: 0.7rem;
+  }
+  div.media-body div p {
+    font-size: 10px;
+  }
+  #id_image {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 300px) {
+  .step-links div {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .step-links button {
+    padding: 2px;
+  }
+  div.media-body div p {
+    font-size: 7px;
+  }
+  
 }

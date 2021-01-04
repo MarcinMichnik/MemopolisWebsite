@@ -4,7 +4,7 @@
 <div id="content">
     <div class="bag">
         <div class="your-memes">
-            <div class="center margin-top2"><h1>Twoje memy</h1></div>
+            <div class="center margin-top2 margin-bottom2"><h1>Twoje memy</h1></div>
             {% for meme in page_obj %}
             <div class="top">
                 <a href="{% url 'meme-detail' meme.id %}">{{ meme }}</a>

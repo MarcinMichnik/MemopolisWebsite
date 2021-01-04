@@ -1,35 +1,12 @@
 {% extends "memopolis/base.html" %}
-{% block content %}
-<div class="container results">
-    <div class="chart">
-        <canvas id="bar-chart" width="800" height="450"></canvas>
-    </div>
-    <div class="text">
-        <div class="container center">
-            <h1>Top 5</h1>
-        </div>
-        {% for meme in memes %}
-        <div class="container border m-3 mobilewidth">
-            <div>
-                <a href="{% url 'meme-detail' meme.id %}">{{ meme.title }}</a>
-            </div>
-            <div>
-                <a>Punkty: </a>
-                <a><span class="green">{{ meme.num_vote_up }}</span></a>
-            </div>
-        </div>
-        {% endfor %}
-        <div class="container border m-3 mobilewidth">
-            <h1>Razem: <span class="green">{{ like_sum }}</span></h1>
-        </div>
-    </div>
-</div>
+{% block javascript %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 <script>
     const title_data = {{ js_meme_titles | safe }};
 
     const like_data = {{ js_meme_likes | safe }};
+    const dislike_data = {{ js_meme_dislikes | safe }};
 
     new Chart(document.getElementById("bar-chart"), {
         type: 'bar',
@@ -37,9 +14,14 @@
         labels: title_data,
         datasets: [
             {
-            label: "Punkty",
+            label: "Like",
             backgroundColor: "rgb(91, 223, 91)",
             data: like_data
+            },
+            {
+            label: "Dislike",
+            backgroundColor: "rgb(255, 99, 71)",
+            data: dislike_data
             }
         ]
         },
@@ -53,6 +35,33 @@
     });
 
 </script>
-
+{% endblock javascript %}
+{% block content %}
+<div class="container results d-flex justify-content-center">
+    <div class="chart">
+        <canvas id="bar-chart" width="800" height="450"></canvas>
+    </div>
+    <div class="text">
+        <div class="container center">
+            <h1>Top 5</h1>
+        </div>
+        {% for meme in memes %}
+        <div class="container border m-3 mobilewidth">
+            <div>
+                <a href="{% url 'meme-detail' meme.id %}" class="grey-hov">{{ meme.title }}</a>
+            </div>
+            <div>
+                <a>Punkty: </a>
+                <a><span class="green">{{ meme.num_vote_up }}</span></a>
+                <a><span class="red">{{ meme.num_vote_down }}</span></a>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="container border m-3 mobilewidth">
+            <h1>Razem: <span class="green">{{ like_sum }}</span><span> | </span><span class="red">{{ dislike_sum }}</span></h1>
+            <h1></h1>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 

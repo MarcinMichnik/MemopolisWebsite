@@ -144,10 +144,14 @@ class YourPointsView(TemplateView):
         context['memes'] = memes
         
         like_sum = 0
+        dislike_sum = 0
         all_memes = Meme.objects.filter(author=request.user.id)
         for meme in all_memes:
             like_sum+=meme.num_vote_up
+        for meme in all_memes:
+            dislike_sum+=meme.num_vote_down
         context['like_sum']=like_sum
+        context['dislike_sum']=dislike_sum
         
         js_meme_titles = [meme.title for meme in memes]
         import json
@@ -155,9 +159,10 @@ class YourPointsView(TemplateView):
         context['js_meme_titles'] = js_meme_titles
         
         js_meme_likes = [meme.num_vote_up for meme in memes]
+        js_meme_dislikes = [meme.num_vote_down for meme in memes]
         #import json
-        js_meme_likes = json.dumps(js_meme_likes)
-        context['js_meme_likes'] = js_meme_likes
+        context['js_meme_likes'] = json.dumps(js_meme_likes)
+        context['js_meme_dislikes'] = json.dumps(js_meme_dislikes)
         
         return render(request, template, context)
    
