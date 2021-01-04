@@ -1,4 +1,4 @@
-$primary-color: #0268b6;
+$primary-color: rgb(2, 104, 182);
 $highlight-primary-color: #007bff;
 $secondary-color: rgb(228, 228, 228);
 $green: MediumSeaGreen;
@@ -666,6 +666,10 @@ a:hover {
     font-size: 35px;
   }
 
+  div.each-comment div.actions *{
+    font-size: 20px;
+  }
+
   div.actions div.act,
   button.inactive {
     display: none;
@@ -802,6 +806,9 @@ a:hover {
   .memeTitle {
     font-size: 28px;
   }
+  div.each-comment div.actions *{
+    font-size: 16px;
+  }
 
 }
 
@@ -834,13 +841,15 @@ a:hover {
   }
 
   .step-links button {
-    padding: 5px;
+    padding: 4px;
   }
 
   div.actions * {
     font-size: 20px;
   }
-
+  div.each-comment div.actions *{
+    font-size: 12px;
+  }
 
 }
 @media (max-width: 320px) {
@@ -861,10 +870,10 @@ a:hover {
     margin-right: 0px;
   }
   .step-links button {
-    padding: 2px;
+    padding: 1px;
   }
   div.media-body div p {
-    font-size: 7px;
+    font-size: 6px;
   }
   
 }

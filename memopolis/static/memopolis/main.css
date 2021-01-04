@@ -644,6 +644,9 @@ a:hover {
   div.actions * {
     font-size: 35px;
   }
+  div.each-comment div.actions * {
+    font-size: 20px;
+  }
   div.actions div.act,
   button.inactive {
     display: none;
@@ -742,6 +745,9 @@ a:hover {
   .memeTitle {
     font-size: 28px;
   }
+  div.each-comment div.actions * {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 489px) {
@@ -766,10 +772,13 @@ a:hover {
     margin-right: 2px;
   }
   .step-links button {
-    padding: 5px;
+    padding: 4px;
   }
   div.actions * {
     font-size: 20px;
+  }
+  div.each-comment div.actions * {
+    font-size: 12px;
   }
 }
 
@@ -791,9 +800,9 @@ a:hover {
     margin-right: 0px;
   }
   .step-links button {
-    padding: 2px;
+    padding: 1px;
   }
   div.media-body div p {
-    font-size: 7px;
+    font-size: 6px;
   }
 }
