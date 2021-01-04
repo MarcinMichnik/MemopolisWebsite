@@ -8,7 +8,7 @@ The project is hosted under https://www.memopolis.pl/. (Currently unhosted)
 
 This site features a system which allows to vote and unvote for a specific meme. Additionally, each user may see their own page that shows their five memes with the largest number of upvotes. This data is shown using chart.js.
 
-![alt text](https://i.imgur.com/Yqtc0xA.png?1 "User upvotes")
+![alt text](https://imgur.com/SAlWxOi "User upvotes")
 
 # API documentation:
 
