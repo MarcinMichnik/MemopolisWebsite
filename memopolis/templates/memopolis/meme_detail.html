@@ -319,17 +319,34 @@
                 </div>
                 {% endif %}
         </div>
-            <div class="act">
+            <div class="act d-flex">
 
             </div>
         </div>
+        {% if user.is_superuser %}
+        <hr>
+        <div id="superuser-actions" class="actions">
+            <div class="act d-flex">
+                <a href="{% url 'meme-delete' meme.pk %}" class="comment btn-outline-primary">Usuń</a>
+            </div>
+
+        </div>
+        <hr>
+        {% endif %}
     </div>
 </div>
 
 <div class="comment-section">
+    {% if user.is_authenticated %}
     <div class="each-comment add-button">
         <button onclick="reveal()">+</button>
     </div>
+    {% else %}
+    <div class="each-comment add-button">
+        <h2><a id="login-a" href="{% url 'login' %}">Zaloguj się</a>, aby dodać komentarz</h2>
+        <button class="button-not-allowed" disabled>+</button>
+    </div>
+    {% endif %}
     <div class="each-comment veil">
         <div class="author pad">
 

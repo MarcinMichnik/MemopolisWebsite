@@ -172,7 +172,7 @@ class MemeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     
     def test_func(self):
         meme = self.get_object()
-        if self.request.user == meme.author:
+        if self.request.user == meme.author or self.request.user.is_superuser:
             return True
         return False
 

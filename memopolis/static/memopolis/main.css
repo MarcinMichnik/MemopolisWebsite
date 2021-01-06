@@ -268,8 +268,21 @@ button.inactive:hover {
   padding-top: 4px;
 }
 
+#login-a:hover {
+  color: #757070;
+}
+
 .act a {
   font-size: 25px;
+}
+
+div.act div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.button-not-allowed:hover {
+  cursor: not-allowed;
 }
 
 .closer {
@@ -332,6 +345,10 @@ header {
 
 .datePosted a {
   font-size: 13px;
+}
+
+#superuser-actions {
+  padding: 4px;
 }
 
 .step-links {
@@ -775,10 +792,17 @@ a:hover {
     padding: 4px;
   }
   div.actions * {
-    font-size: 20px;
+    font-size: 18px;
+  }
+  .meme .act {
+    padding-top: 1px;
   }
   div.each-comment div.actions * {
     font-size: 12px;
+  }
+  #content {
+    display: block;
+    justify-content: center;
   }
 }
 
