@@ -143,6 +143,10 @@ class YourPointsView(TemplateView):
         memes = Meme.objects.filter(author=request.user.id).order_by('-num_vote_up')[:5]
         context['memes'] = memes
         
+
+
+        context['js_memes'] = Meme.objects.values()
+        
         like_sum = 0
         dislike_sum = 0
         all_memes = Meme.objects.filter(author=request.user.id)
