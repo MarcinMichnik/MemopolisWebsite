@@ -404,11 +404,6 @@ header {
   max-height: 120px;
 }
 
-.dropdown:hover .dropdown-content {
-  position: absolute;
-  display: block;
-}
-
 .text textarea {
   width: 100%;
 }
@@ -691,6 +686,9 @@ a:hover {
     padding-left: 3px;
     padding-right: 3px;
   }
+  .media .media-body .account-heading {
+    font-size: 1.4rem;
+  }
   .memeTitle {
     font-size: 24px;
   }
@@ -811,10 +809,10 @@ a:hover {
     font-size: 0.7rem;
   }
   div.media-body div p {
-    font-size: 10px;
+    font-size: 9px;
   }
   #id_image {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
