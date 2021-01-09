@@ -35,6 +35,10 @@ body {
   height: 100px !important;
 }
 
+div.d-flex button.selector-not-allowed:hover {
+  cursor: not-allowed;
+}
+
 .top a:hover,
 .memeTitle a:hover,
 .content-section a:hover {
