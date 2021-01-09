@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from vote.models import VoteModel
+from users.models import Profile
 
 class Tag(models.Model):
     name = models.CharField(max_length=10, null=True)
@@ -38,3 +39,12 @@ class Comment(VoteModel, models.Model):
     def __str__(self):
         return self.content
     
+class Badge(models.Model):
+    title = models.CharField(max_length=25)
+    description = models.TextField(null=True)
+    parent = models.ManyToManyField(Profile, blank=False)
+    date_added_to_parent = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(null=True)
+    
+    def __str__(self):
+        return self.title
