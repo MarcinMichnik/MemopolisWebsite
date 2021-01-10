@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Meme, Comment
+from .models import Meme, Comment, Badge
 from django.core.paginator import Paginator
 from django.views.generic import (TemplateView, 
                                   ListView, 
@@ -167,6 +167,19 @@ class YourPointsView(TemplateView):
         #import json
         context['js_meme_likes'] = json.dumps(js_meme_likes)
         context['js_meme_dislikes'] = json.dumps(js_meme_dislikes)
+        
+        return render(request, template, context)
+    
+class YourBadgesView(TemplateView):
+    template_name = 'memopolis/your_badges.html'
+
+    def get(self, request):
+        template=self.template_name
+        
+        context = {}
+        
+        badges=Badge.objects.filter(parent=request.user.id)
+        context['badges']=badges
         
         return render(request, template, context)
    

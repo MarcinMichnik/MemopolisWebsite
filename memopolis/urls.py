@@ -10,7 +10,8 @@ from .views import (MemeListView,
                     MemeDeleteView,
                     post_vote,
                     post_comment,
-                    delete_comment)
+                    delete_comment,
+                    YourBadgesView)
 from . import views
 
 urlpatterns = [
@@ -22,6 +23,7 @@ urlpatterns = [
     path('kontakt/', views.kontakt, name="memopolis-kontakt"),
     path('profil/memy/', YourMemesListView.as_view(), name="memopolis-your-memes"),
     path('profil/punkty/', YourPointsView.as_view(), name="memopolis-your-points"),
+    path('profil/odznaki/', YourBadgesView.as_view(), name="memopolis-your-badges"),
     path('meme/<int:pk>/edytuj/', MemeUpdateView.as_view(), name="meme-edit"),
     path('meme/<int:pk>/usuń/', MemeDeleteView.as_view(), name="meme-delete"),
     path('post/ajax/vote', post_vote, name = "post-vote"),
