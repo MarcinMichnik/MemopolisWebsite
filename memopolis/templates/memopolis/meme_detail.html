@@ -301,7 +301,7 @@
 
                 {% else %}
                 <div class="d-flex">
-                    <button type="submit" class="background-primary">
+                    <button type="submit" class="background-primary selector-not-allowed">
                         <div class="widen d-flex">
                             <div class="color-white"><a>&#8593;</a></div>
                             <div class="color-green"><a>{{ meme.num_vote_up }}</a></div>
@@ -310,7 +310,7 @@
                     <button type="button" class="btn background-primary color-white inactive" disabled>
                         <div><a>|</a></div>
                     </button>
-                    <button type="submit" class="background-primary">
+                    <button type="submit" class="background-primary selector-not-allowed">
                         <div class="widen d-flex">
                             <div class="color-white"><a>&#8595;</a></div>
                             <div class="color-red"><a>{{ meme.num_vote_down }}</a></div>
@@ -345,7 +345,7 @@
     {% else %}
     <div class="each-comment add-button">
         <h2><a id="login-a" href="{% url 'login' %}">Zaloguj się</a>, aby dodać komentarz</h2>
-        <button class="button-not-allowed" disabled>+</button>
+        <button class="selector-not-allowed" disabled>+</button>
     </div>
     {% endif %}
     <div class="each-comment veil">
@@ -442,7 +442,7 @@
             {% else %}
             <div class="votes d-flex">
                 <form>
-                    <button type="submit" class="background-primary btn-outline-primary" disabled>
+                    <button type="submit" class="background-primary btn-outline-primary selector-not-allowed" disabled>
                         <div class="d-flex">
                                 <div class="color-white symbol"><a>&#8593;</a></div>
                                 <div class="color-green num"><a>{{ comment.num_vote_up }}</a></div>
@@ -450,7 +450,7 @@
                     </button>
                 </form>
                 <form>
-                    <button type="submit" class="background-primary btn-outline-primary" disabled>
+                    <button type="submit" class="background-primary btn-outline-primary selector-not-allowed" disabled>
                         <div class="d-flex">
                                 <div class="color-white symbol"><a>&#8595;</a></div>
                                 <div class="color-red num"><a>{{ comment.num_vote_down }}</a></div>

@@ -29,7 +29,7 @@ body {
   height: 100px !important;
 }
 
-div.d-flex button.selector-not-allowed:hover {
+.selector-not-allowed:hover {
   cursor: not-allowed;
 }
 
@@ -283,10 +283,6 @@ button.inactive:hover {
 div.act div {
   margin-left: 5px;
   margin-right: 5px;
-}
-
-.button-not-allowed:hover {
-  cursor: not-allowed;
 }
 
 .closer {

@@ -314,8 +314,8 @@
         {% endif %}
         {% if not page_obj.has_previous %}
         <div class="prev">
-            <button class="btn btn-outline-secondary" disabled><a class="font-weight-bold">&laquo; Pierwsza</a></button>
-            <button class="btn btn-outline-secondary" disabled><a class="font-weight-bold">Poprzednia</a></button>
+            <button class="btn btn-outline-secondary selector-not-allowed" disabled><a class="font-weight-bold">&laquo; Pierwsza</a></button>
+            <button class="btn btn-outline-secondary selector-not-allowed" disabled><a class="font-weight-bold">Poprzednia</a></button>
         </div>
         {% endif %}
 
@@ -334,8 +334,8 @@
         {% endif %}
         {% if not page_obj.has_next %}
         <div class="forth">
-            <button class="btn btn-outline-secondary" disabled><a class="font-weight-bold">Następna</a></button>
-            <button class="btn btn-outline-secondary" disabled><a class="font-weight-bold">Ostatnia &raquo;</a></button>
+            <button class="btn btn-outline-secondary selector-not-allowed" disabled><a class="font-weight-bold">Następna</a></button>
+            <button class="btn btn-outline-secondary selector-not-allowed" disabled><a class="font-weight-bold">Ostatnia &raquo;</a></button>
         </div>
         {% endif %}
     </div>
