@@ -52,8 +52,8 @@ Memopolis offers an API, which is built on Django REST framework.
  Tags are bound to memes and describe them.
 #### Properties:
         {
-        "id": integer,
-        "name": string
+           "id": integer,
+           "name": string
         }
 ---
 ### User objects:
@@ -62,11 +62,11 @@ Memopolis offers an API, which is built on Django REST framework.
  Users are accounts created by website visitors. There is a difference between user objects and profile objects.
 #### Properties:
         {
-        "id": integer,
-        "username": string,
-        "last_login": string,
-        "date_joined": string,
-        "is_superuser": boolean
+           "id": integer,
+           "username": string,
+           "last_login": string,
+           "date_joined": string,
+           "is_superuser": boolean
         }
 ---
 ### Profile objects:
@@ -75,7 +75,7 @@ Memopolis offers an API, which is built on Django REST framework.
  A profile is a combination of a user and an image, which is used as an avatar.
 #### Properties:
         {
-        "id": integer,
-        "user": integer,
-        "image": string 
+           "id": integer,
+           "user": integer,
+           "image": string 
         }
